@@ -28,7 +28,7 @@ public class Food {
      * Makes the ellipse representing the food on the canvas with the given parameters
      * from above
      */
-    private Ellipse makeFood() {
+    public Ellipse makeFood() {
         food = new Ellipse(location.getX() - radius, location.getY() - radius, 
                                 radius * 2, radius * 2);
         food.setFilled(true);
