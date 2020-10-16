@@ -3,8 +3,8 @@ import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.events.Key;
 
 public class snakeGame {
-        private static final int CANVAS_WIDTH = 600;
-        private static final int CANVAS_HEIGHT = 800;
+        private static final int CANVAS_WIDTH = 800;
+        private static final int CANVAS_HEIGHT = 600;
         private static CanvasWindow canvas;
         private Snake snake;
         

@@ -44,7 +44,7 @@ public class Snake extends Rectangle{
                 this.updatePosition();
             }
             if (y + width >= canvas.getHeight()) {
-                y = canvas.getHeight() - width;
+                y = canvas.getHeight() - height;
                 this.updatePosition();
             } 
     }
