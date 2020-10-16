@@ -41,6 +41,13 @@ public class Food {
         return radius;
     }
 
+    public double getCenterX() {
+        return location.getX();
+    }
+    public double getCenterY() {
+        return location.getY();
+    }
+
     public Point getCenter() {
         return location;
     }
