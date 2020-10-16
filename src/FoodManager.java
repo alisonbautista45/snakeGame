@@ -53,7 +53,7 @@ public class FoodManager {
      */
     public void newLocation() {
         x = new Random().nextInt(canvas.getWidth());
-        y = new Random().nextInt(canvas.getWidth());
+        y = new Random().nextInt(canvas.getHeight());
         location = new Point(x, y);
         food.setCenter(location);
     }
