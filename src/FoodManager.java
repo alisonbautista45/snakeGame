@@ -14,8 +14,8 @@ public class FoodManager {
     private int y;
 
     FoodManager(CanvasWindow canvas) {
-        x = 0;
-        y = 0;
+        x = new Random().nextInt(canvas.getWidth());
+        y = new Random().nextInt(canvas.getWidth());
         location = new Point(x, y);
         food = new Food(location);
         this.canvas = canvas;
@@ -27,23 +27,23 @@ public class FoodManager {
      */
      public void foodEaten(boolean isEaten) {
         if (isEaten) {
-            removeFood(food);
+            removeFood();
             newLocation();
-            addFood(food);
+            addFood();
         }
      }
 
     /**
      * Removes piece of food from canvas
      */
-    public void removeFood(Food food) {
+    public void removeFood() {
         canvas.remove(food.makeFood());
     }
 
     /**
      * Adds piece of food to the canvas
      */
-    public void addFood(Food food) {
+    public void addFood() {
         canvas.add(food.makeFood());
     }
 
