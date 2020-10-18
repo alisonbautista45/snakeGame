@@ -42,6 +42,9 @@ public class SnakeGame {
         snake.setCenter(canvas.getWidth() * 0.5, canvas.getHeight() * 0.9);
         canvas.add(snake);
 
+        collide = new Collision(snake, food.food);
+
+        food.foodEaten(collide.eatsFood());
 
         canvas.onKeyDown(event-> {
             if (event.getKey() == Key.LEFT_ARROW) {
@@ -72,15 +75,19 @@ public class SnakeGame {
 
         canvas.animate(() -> {
             if(moveLeft) {
+                food.foodEaten(collide.eatsFood());
                 snake.moveLeft();
             }
             if(moveRight) {
+                food.foodEaten(collide.eatsFood());
                 snake.moveRight();
             }
             if(moveUp) {
+                food.foodEaten(collide.eatsFood());
                 snake.moveUp();
             }
             if(moveDown) {
+                food.foodEaten(collide.eatsFood());
                 snake.moveDown();
             }
         });
