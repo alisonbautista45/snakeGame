@@ -7,38 +7,85 @@ public class SnakeGame {
         private static final int CANVAS_HEIGHT = 600;
         private static CanvasWindow canvas;
         private Snake snake;
+
+        private FoodManager food;
+
+        private Collision collide;
+
+        private boolean moveLeft;
+        private boolean moveRight;
+        private boolean moveUp;
+        private boolean moveDown;
+
+
         
-        public static void main(String[] args) {   
-            SnakeGame game = new SnakeGame(); 
-            game.createSnake();
+    public static void main(String[] args) {   
+        new SnakeGame(); 
     }
      
     /**
      * Main Snake game method that animates the canvas
      */
     public SnakeGame() {
+
+        moveLeft = false;
+        moveRight = false;
+        moveUp = false;
+        moveDown = false;
+
         canvas = new CanvasWindow("Snake!", CANVAS_WIDTH, CANVAS_HEIGHT);
-        canvas.animate(() -> {snake.move();
-                            });
-                           
-        canvas.onKeyDown(event -> {
+
+        food = new FoodManager(canvas);
+        food.addFood();
+
+        snake = new Snake(canvas);
+        snake.setCenter(canvas.getWidth() * 0.5, canvas.getHeight() * 0.9);
+        canvas.add(snake);
+
+
+        canvas.onKeyDown(event-> {
             if (event.getKey() == Key.LEFT_ARROW) {
-                canvas.animate(() -> snake.moveLeft());
+                moveRight = false;
+                moveUp = false;
+                moveDown = false;
+                moveLeft = true;
             }
             if (event.getKey() == Key.RIGHT_ARROW) {
-                canvas.animate(() -> snake.moveRight());
+                moveLeft = false;
+                moveUp = false;
+                moveDown = false;
+                moveRight = true;
             }
             if (event.getKey() == Key.UP_ARROW) {
-                canvas.animate(() -> snake.moveUp());
+                moveLeft = false;
+                moveRight = false;
+                moveDown = false;
+                moveUp = true;
             }
             if (event.getKey() == Key.DOWN_ARROW) {
-                canvas.animate(() ->snake.moveDown());
+                moveLeft = false;
+                moveRight = false;
+                moveUp = false;
+                moveDown = true;
             }
         });   
+
+        canvas.animate(() -> {
+            if(moveLeft) {
+                snake.moveLeft();
+            }
+            if(moveRight) {
+                snake.moveRight();
+            }
+            if(moveUp) {
+                snake.moveUp();
+            }
+            if(moveDown) {
+                snake.moveDown();
+            }
+        });
+                           
+        
     }
-    private void createSnake() {
-        snake = new Snake(canvas);
-        canvas.add(snake);
-        canvas.draw();
-    }
+   
 }
