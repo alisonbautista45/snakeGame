@@ -15,7 +15,7 @@ public class FoodManager {
 
     FoodManager(CanvasWindow canvas) {
         x = new Random().nextInt(canvas.getWidth());
-        y = new Random().nextInt(canvas.getWidth());
+        y = new Random().nextInt(canvas.getHeight());
         location = new Point(x, y);
         food = new Food(location);
         this.canvas = canvas;

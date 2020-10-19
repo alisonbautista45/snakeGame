@@ -9,7 +9,7 @@ public class Food {
     private Ellipse food;
 
     //how big our food that shows up will be
-    private int radius;
+    int radius;
 
     //color of food
     private Color color;

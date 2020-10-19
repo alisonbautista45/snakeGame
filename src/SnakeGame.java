@@ -2,6 +2,11 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.events.Key;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.macalester.graphics.Point;
+
 public class SnakeGame {
         private static final int CANVAS_WIDTH = 800;
         private static final int CANVAS_HEIGHT = 600;
@@ -12,12 +17,18 @@ public class SnakeGame {
 
         private Collision collide;
 
+        private Segments segments;
+
+        private List<Segments> allSegments = new ArrayList<>();
+
         private boolean moveLeft;
         private boolean moveRight;
         private boolean moveUp;
         private boolean moveDown;
 
+        private int numSegs;
 
+        private List<Point> path;
         
     public static void main(String[] args) {   
         new SnakeGame(); 
@@ -27,6 +38,12 @@ public class SnakeGame {
      * Main Snake game method that animates the canvas
      */
     public SnakeGame() {
+
+
+        numSegs = 0;
+
+
+        path = new ArrayList<>();
 
         moveLeft = false;
         moveRight = false;
@@ -75,24 +92,43 @@ public class SnakeGame {
 
         canvas.animate(() -> {
             if(moveLeft) {
+                addingSegments(path);
                 food.foodEaten(collide.eatsFood());
+                snake.addToPath(path);
                 snake.moveLeft();
             }
             if(moveRight) {
+                addingSegments(path);
                 food.foodEaten(collide.eatsFood());
+                snake.addToPath(path);
                 snake.moveRight();
             }
             if(moveUp) {
+                addingSegments(path);
                 food.foodEaten(collide.eatsFood());
+                snake.addToPath(path);
                 snake.moveUp();
             }
             if(moveDown) {
+                addingSegments(path);
                 food.foodEaten(collide.eatsFood());
+                snake.addToPath(path);
                 snake.moveDown();
             }
-        });
-                           
-        
+        });             
+    }
+
+    private void addingSegments(List<Point> path) {
+        if(collide.eatsFood()) {
+            numSegs++;
+            segments = new Segments(snake, path, numSegs);
+            segments.addToCanvas();
+            allSegments.add(segments);
+        }
+        for(Segments segs : allSegments) {
+            segs.follow(10);
+            segs.addToPaths(path);
+        }
     }
    
 }

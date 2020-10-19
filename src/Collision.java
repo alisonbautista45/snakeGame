@@ -1,9 +1,16 @@
+import java.util.List;
+
+import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.Point;
 
 public class Collision {
 
     private Snake snake;
 
     private Food food;
+
+    // private List<Point> snakeHead;
+
 
     /**
      * 
@@ -14,14 +21,15 @@ public class Collision {
      */
 
     public Collision (Snake snake, Food food) {
-
         this.snake = snake;
         this.food = food;
+        // this.snakeHead = snake.updateHead();
     }
 
     public boolean eatsFood() {
-        if(Math.hypot(snake.getX() - food.getCenterX(), 
-                    snake.getY() - food.getCenterY()) < 50) 
+        // if(this.foodFinder(snakeHead)) 
+        if (Math.hypot(food.getCenterX() - snake.getX(), 
+                                food.getCenterY() - snake.getY()) < food.radius + 5)
         {
             return true;
         }
@@ -29,4 +37,14 @@ public class Collision {
             return false;
         }
     }
+
+    // private boolean foodFinder(List<Point> points) {
+    //     for (Point point : points) {
+    //         if (Math.hypot(food.getCenterX() - point.getX(), 
+    //                             food.getCenterY() - point.getY()) < food.radius) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 }

@@ -1,4 +1,8 @@
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
 
 public class Snake extends Rectangle {
@@ -9,7 +13,7 @@ public class Snake extends Rectangle {
     private double dy = 0;
     private static double width = 10;
     private static double height = 10;
-    private CanvasWindow canvas;
+    public CanvasWindow canvas;
     
     /**
      * Sets snake dimensions
@@ -18,25 +22,9 @@ public class Snake extends Rectangle {
         super(x, y, width, height);
         x = canvas.getWidth() * .4;
         y = canvas.getHeight() * 0.9;
-        this.setFilled(true);
+        this.setFilled(false);
         this.canvas = canvas;
         this.updatePosition();
-    }
-
-    /**
-     * Moves the snake on the canvas by changing its direction
-     */
-    public void move() {
-        // x += speed;
-        // if (x <= 0) {
-        //     x = 0;
-        // }
-        // if (x + width >= canvas.getWidth()) {
-        //     x = canvas.getWidth() - width;
-        // }
-        // this.updatePosition();
-
-        
     }
 
     /**
@@ -100,4 +88,10 @@ public class Snake extends Rectangle {
     public void updatePosition() {
         this.setPosition(this.getX() + dx, this.getY() + dy);
     }
+
+    public void addToPath(List<Point> path) {
+        Point point = new Point(this.getX(), this.getY());
+        path.add(point);
+    }
+
 }
