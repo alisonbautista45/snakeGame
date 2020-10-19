@@ -6,7 +6,6 @@ import edu.macalester.graphics.Point;
 public class Segments extends Snake{
 
     private List<Point> path;
-    private List<Point> newPath;
     private int distance;
 
 
@@ -17,16 +16,10 @@ public class Segments extends Snake{
         this.distance = distance;
     }
 
-    public void addToPaths(List<Point> newPath) {
-        this.path = newPath;
-    }
+    public void follow() {
+        this.setPosition(path.get(this.path.size() - distance * 6).getX(), 
+                                path.get(this.path.size() - distance * 6).getY());
 
-    public void follow(int seg) {
-        if (seg > 0) {
-            this.setPosition(path.get(this.path.size() - distance * 10).getX(), 
-                                    path.get(this.path.size() - distance * 10).getY());
-            path.remove(0);
-        }
     }
 
     public void addToCanvas() {

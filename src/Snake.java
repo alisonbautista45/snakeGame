@@ -22,7 +22,7 @@ public class Snake extends Rectangle {
         super(x, y, width, height);
         x = canvas.getWidth() * .4;
         y = canvas.getHeight() * 0.9;
-        this.setFilled(false);
+        this.setFilled(true);
         this.canvas = canvas;
         this.updatePosition();
     }
