@@ -9,6 +9,8 @@ public class Collision {
     private Snake snake;
     private Food food;
 
+    private CanvasWindow canvas;
+
     // private List<Point> snakeHead;
 
 
@@ -20,17 +22,19 @@ public class Collision {
      * 
      */
 
-    public Collision (Snake snake, Food food) {
+    public Collision (Snake snake, CanvasWindow canvas) {
         this.snake = snake;
         this.food = food;
+        this.canvas = canvas;
         // this.snakeHead = snake.updateHead();
     }
 
     public boolean eatsFood() {
         // if(this.foodFinder(snakeHead)) 
-        if (Math.hypot(food.getCenterX() - snake.getX(), 
-                                food.getCenterY() - snake.getY()) < food.radius + 5)
-        {
+        double X = snake.getX();
+        double Y = snake.getY();
+        if (canvas.getElementAt(X, Y) instanceof Food) {
+            canvas.remove(canvas.getElementAt(X, Y));
             return true;
         }
         else {

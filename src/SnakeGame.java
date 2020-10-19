@@ -39,9 +39,7 @@ public class SnakeGame {
      */
     public SnakeGame() {
 
-
         numSegs = 0;
-
 
         path = new ArrayList<>();
 
@@ -59,7 +57,7 @@ public class SnakeGame {
         snake.setCenter(canvas.getWidth() * 0.5, canvas.getHeight() * 0.9);
         canvas.add(snake);
 
-        collide = new Collision(snake, food.food);
+        collide = new Collision(snake,  canvas);
 
         food.foodEaten(collide.eatsFood());
 
