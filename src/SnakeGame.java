@@ -158,12 +158,12 @@ public class SnakeGame {
         canvas.add(start);
 
         Button basic = new Button("No obstacles");
-        basic.setPosition(CANVAS_WIDTH / 6, 2 * CANVAS_HEIGHT / 3);
+        basic.setPosition(50, 2 * CANVAS_HEIGHT / 3);
         canvas.add(basic);
         basic.onClick(() -> wallManager.removeWalls());
 
         Button borders = new Button("Borders");
-        borders.setPosition(CANVAS_WIDTH / 3, 2 * CANVAS_HEIGHT / 3);
+        borders.setPosition(200, 2 * CANVAS_HEIGHT / 3);
         canvas.add(borders);
         borders.onClick(() -> {
             wallManager.removeWalls();
@@ -171,7 +171,7 @@ public class SnakeGame {
         });
 
         Button doors = new Button("Doors");
-        doors.setPosition(CANVAS_WIDTH / 2, 2 * CANVAS_HEIGHT / 3);
+        doors.setPosition(300, 2 * CANVAS_HEIGHT / 3);
         canvas.add(doors);
         doors.onClick(() -> {
             wallManager.removeWalls();
@@ -179,7 +179,7 @@ public class SnakeGame {
         });
 
         Button simpleMaze = new Button("simple Maze");
-        basic.setPosition(2 * CANVAS_WIDTH / 3, 2 * CANVAS_HEIGHT / 3);
+        simpleMaze.setPosition(400, 2 * CANVAS_HEIGHT / 3);
         canvas.add(simpleMaze);
         simpleMaze.onClick(() -> {
             wallManager.removeWalls();
@@ -187,7 +187,7 @@ public class SnakeGame {
         });
 
         Button harderMaze = new Button("Not So Simple Maze");
-        basic.setPosition(5 * CANVAS_WIDTH / 6, 2 * CANVAS_HEIGHT / 3);
+        harderMaze.setPosition(550, 2 * CANVAS_HEIGHT / 3);
         canvas.add(harderMaze);
         harderMaze.onClick(() -> {
             wallManager.removeWalls();
