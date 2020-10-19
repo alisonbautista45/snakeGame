@@ -14,7 +14,7 @@ public class Wall extends Rectangle {
         List<Color> colors = List.of(Color.GREEN, Color.BLUE, Color.CYAN, Color.ORANGE, Color.MAGENTA, Color.YELLOW);
         this.setFilled(true);
         this.setFillColor(colors.get(random.nextInt(colors.size())));
-        this.setStroked(false);
+        this.setStroked(true);
     }
 
 }
