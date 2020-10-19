@@ -19,6 +19,7 @@ public class FoodManager {
         location = new Point(x, y);
         food = new Food(location);
         this.canvas = canvas;
+        canvas.add(food);
     }
 
     /**
@@ -37,14 +38,15 @@ public class FoodManager {
      * Removes piece of food from canvas
      */
     public void removeFood() {
-        canvas.remove(food.makeFood());
+        canvas.remove(food);
     }
 
     /**
      * Adds piece of food to the canvas
      */
     public void addFood() {
-        canvas.add(food.makeFood());
+        food = new Food(location);
+        canvas.add(food);
     }
 
     /** 
