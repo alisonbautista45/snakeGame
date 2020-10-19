@@ -12,6 +12,8 @@ public class Collision {
 
     private GraphicsGroup foodPieces;
 
+    private CanvasWindow canvas;
+
 
     /**
      * 
@@ -21,10 +23,11 @@ public class Collision {
      * 
      */
 
-    public Collision (Snake snake, GraphicsGroup group, GraphicsGroup foodPieces) {
+    public Collision (Snake snake, GraphicsGroup group, GraphicsGroup foodPieces, CanvasWindow canvas) {
         this.group = group;
         this.foodPieces = foodPieces;
         this.snake = snake;
+        this.canvas = canvas;
     }
 
     public boolean eatsFood() {
@@ -48,5 +51,14 @@ public class Collision {
         else {
             return true;
         }
+    }
+
+    public boolean wallCollision() {
+        if (canvas.getElementAt(snake.getCenter()) instanceof Wall) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

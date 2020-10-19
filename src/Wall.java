@@ -16,5 +16,5 @@ public class Wall extends Rectangle {
         this.setFillColor(colors.get(random.nextInt(colors.size())));
         this.setStroked(true);
     }
-
+    
 }
