@@ -104,25 +104,30 @@ public class SnakeGame {
         });   
 
         canvas.animate(() -> {
+            checkForCollision();
             if(moveLeft) {
+                
                 addingSegments(path);
                 food.foodEaten(collide.eatsFood());
                 snake.addToPath(path);
                 snake.moveLeft();
             }
             if(moveRight) {
+                
                 addingSegments(path);
                 food.foodEaten(collide.eatsFood());
                 snake.addToPath(path);
                 snake.moveRight();
             }
             if(moveUp) {
+               
                 addingSegments(path);
                 food.foodEaten(collide.eatsFood());
                 snake.addToPath(path);
                 snake.moveUp();
             }
             if(moveDown) {
+               
                 addingSegments(path);
                 food.foodEaten(collide.eatsFood());
                 snake.addToPath(path);
@@ -144,11 +149,11 @@ public class SnakeGame {
         }
     }
 
-    // private void checkForCollision() {
-    //     if (collide.wallCollision()) {
-    //         System.out.println("----------> COLLISION");
-    //     }
-    // }
+    private void checkForCollision() {
+        if (collide.wallCollision()) {
+            System.out.println("----------> COLLISION");
+        }
+    }
 
     private void homeScreen() {
         canvas.removeAll();

@@ -127,5 +127,6 @@ public class WallManager {
         for (Wall wall : walls) {
             canvas.remove(wall);
         }
+        walls = new ArrayList<>();
     }
 }
