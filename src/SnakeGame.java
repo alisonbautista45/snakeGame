@@ -2,6 +2,8 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.events.Key;
 
+import edu.macalester.graphics.GraphicsGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class SnakeGame {
         private int numSegs;
 
         private List<Point> path;
+
+        private GraphicsGroup group = new GraphicsGroup();
+        private GraphicsGroup foodPieces = new GraphicsGroup();
         
     public static void main(String[] args) {   
         new SnakeGame(); 
@@ -50,16 +55,16 @@ public class SnakeGame {
 
         canvas = new CanvasWindow("Snake!", CANVAS_WIDTH, CANVAS_HEIGHT);
 
-        food = new FoodManager(canvas);
-        food.addFood();
+        food = new FoodManager(canvas, foodPieces);
 
         snake = new Snake(canvas);
         snake.setCenter(canvas.getWidth() * 0.5, canvas.getHeight() * 0.9);
-        canvas.add(snake);
+        group.add(snake);
 
-        collide = new Collision(snake,  canvas);
+        collide = new Collision(snake, group, foodPieces);
 
-        food.foodEaten(collide.eatsFood());
+        canvas.add(group);
+        canvas.add(foodPieces);
 
         canvas.onKeyDown(event-> {
             if (event.getKey() == Key.LEFT_ARROW) {
@@ -117,15 +122,14 @@ public class SnakeGame {
     }
 
     private void addingSegments(List<Point> path) {
-        if(collide.eatsFood()) {
+        if(collide.eatsFood2()) {
             numSegs++;
-            segments = new Segments(snake, path, numSegs);
-            segments.addToCanvas();
+            segments = new Segments(snake, path, numSegs, group);
+            segments.addToGroup();
             allSegments.add(segments);
         }
         for(Segments segs : allSegments) {
-            segs.follow(10);
-            segs.addToPaths(path);
+            segs.follow();
         }
     }
    

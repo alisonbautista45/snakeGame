@@ -1,5 +1,6 @@
 import java.util.Random;
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
 
 public class FoodManager {
@@ -10,16 +11,19 @@ public class FoodManager {
 
     private Point location;
 
+    private GraphicsGroup group;
+
     private int x;
     private int y;
 
-    FoodManager(CanvasWindow canvas) {
+    FoodManager(CanvasWindow canvas, GraphicsGroup group) {
         x = new Random().nextInt(canvas.getWidth());
         y = new Random().nextInt(canvas.getHeight());
         location = new Point(x, y);
         food = new Food(location);
         this.canvas = canvas;
-        canvas.add(food);
+        this.group = group;
+        addFood();
     }
 
     /**
@@ -28,7 +32,6 @@ public class FoodManager {
      */
      public void foodEaten(boolean isEaten) {
         if (isEaten) {
-            removeFood();
             newLocation();
             addFood();
         }
@@ -37,16 +40,13 @@ public class FoodManager {
     /**
      * Removes piece of food from canvas
      */
-    public void removeFood() {
-        canvas.remove(food);
-    }
 
     /**
      * Adds piece of food to the canvas
      */
     public void addFood() {
         food = new Food(location);
-        canvas.add(food);
+        group.add(food);
     }
 
     /** 

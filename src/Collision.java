@@ -1,17 +1,16 @@
 import java.util.List;
 
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
 
 public class Collision {
 
     private Snake snake;
 
-    private Food food;
+    private GraphicsGroup group;
 
-    private CanvasWindow canvas;
-
-    // private List<Point> snakeHead;
+    private GraphicsGroup foodPieces;
 
 
     /**
@@ -22,33 +21,32 @@ public class Collision {
      * 
      */
 
-    public Collision (Snake snake, CanvasWindow canvas) {
+    public Collision (Snake snake, GraphicsGroup group, GraphicsGroup foodPieces) {
+        this.group = group;
+        this.foodPieces = foodPieces;
         this.snake = snake;
-        this.food = food;
-        this.canvas = canvas;
-        // this.snakeHead = snake.updateHead();
     }
 
     public boolean eatsFood() {
-        // if(this.foodFinder(snakeHead)) 
         double X = snake.getX();
         double Y = snake.getY();
-        if (canvas.getElementAt(X, Y) instanceof Food) {
-            canvas.remove(canvas.getElementAt(X, Y));
-            return true;
+        if (foodPieces.getElementAt(X - 0.1, Y - 0.1) == null){
+            return false;
         }
         else {
-            return false;
+            foodPieces.remove(foodPieces.getElementAt(X - 0.1, Y - 0.1));
+            return true;
         }
     }
 
-    // private boolean foodFinder(List<Point> points) {
-    //     for (Point point : points) {
-    //         if (Math.hypot(food.getCenterX() - point.getX(), 
-    //                             food.getCenterY() - point.getY()) < food.radius) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
+    public boolean eatsFood2() {
+        double X = snake.getX();
+        double Y = snake.getY();
+        if (foodPieces.getElementAt(X - 0.1, Y - 0.1) == null){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }
