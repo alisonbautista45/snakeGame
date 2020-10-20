@@ -94,4 +94,7 @@ public class Snake extends Rectangle {
         path.add(point);
     }
 
+    public void removeSnake (boolean snakeCollision){
+        canvas.remove(this);
+    }
 }

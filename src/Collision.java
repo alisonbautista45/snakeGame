@@ -1,3 +1,4 @@
+import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 
 public class Collision {
@@ -10,6 +11,8 @@ public class Collision {
 
     private WallManager wallManager;
 
+    private CanvasWindow canvas;
+
 
     /**
      * 
@@ -19,11 +22,12 @@ public class Collision {
      * 
      */
 
-    public Collision (Snake snake, GraphicsGroup group, GraphicsGroup foodPieces, WallManager wallManager) {
+    public Collision (Snake snake, GraphicsGroup group, GraphicsGroup foodPieces, WallManager wallManager, CanvasWindow canvas) {
         this.group = group;
         this.foodPieces = foodPieces;
         this.snake = snake;
         this.wallManager = wallManager;
+        this.canvas = canvas;
     }
 
     public boolean eatsFood() {
@@ -57,5 +61,12 @@ public class Collision {
             return false;
         }
 
+    }
+    public boolean snakeCollision() {
+        if (canvas.getElementAt(snake.getCenter()) instanceof Segments) {
+            return true;
+        } else{
+            return false;
+        }
     }
 }

@@ -8,26 +8,33 @@ public class Segments extends Snake{
 
     private List<Point> path;
     private int distance;
-    private GraphicsGroup group;
+    private static GraphicsGroup segments;
 
 
-    public Segments(Snake snake, List<Point> path, int distance, GraphicsGroup group) {
+    public Segments(Snake snake, List<Point> path, int distance, GraphicsGroup segments) {
         super(snake.canvas);
         this.setFilled(true);
         this.path = path;
         this.distance = distance;
-        this.group = group;
+        this.segments = segments;
     }
 
     public void follow() {
-        this.setPosition(path.get(this.path.size() - distance * 6).getX(), 
-                                path.get(this.path.size() - distance * 6).getY());
+        this.setPosition(path.get(this.path.size() - distance * 6).getX(),
+            path.get(this.path.size() - distance * 6).getY());
 
     }
 
     public void addToGroup() {
         this.setCenter(path.get(0).getX(), path.get(0).getY());
-        group.add(this);
+        segments.add(this);
     }
-    
+
+    public GraphicsGroup getSegmentsGroup() {
+        return segments;
+    }
+
+    public void removeAll() {
+        segments.removeAll();
+    }
 }

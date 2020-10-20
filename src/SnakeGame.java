@@ -78,8 +78,7 @@ public class SnakeGame {
 
         wallManager = new WallManager(canvas);
 
-        collide = new Collision(snake, group, foodPieces, wallManager);
-                 
+        collide = new Collision(snake, group, foodPieces, wallManager, canvas);              
     }
 
     private void run() {
@@ -157,10 +156,17 @@ public class SnakeGame {
         }
     }
 
+       
+
+
     private void checkForCollision() {
         if (collide.wallCollision()) {
             System.out.println("-----> THERE HAS BEEN A COLLISION");
             System.exit(0);
+        }
+        if (collide.snakeCollision()){
+            segments.removeAll();
+            canvas.remove(segments);
         }
     }
 
