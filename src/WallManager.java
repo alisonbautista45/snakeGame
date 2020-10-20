@@ -28,18 +28,23 @@ public class WallManager {
         Wall wall1 = new Wall(0, 0, CANVAS_WIDTH - SMALLER_SIDE, SMALLER_SIDE);
         canvas.add(wall1);
         walls.add(wall1);
+        wallGroup.add(wall1);
 
         Wall wall2 = new Wall(CANVAS_WIDTH - SMALLER_SIDE, 0, SMALLER_SIDE, CANVAS_HEIGHT - SMALLER_SIDE);
         canvas.add(wall2);
         walls.add(wall2);
+        wallGroup.add(wall2);
 
         Wall wall3 = new Wall(SMALLER_SIDE, CANVAS_HEIGHT - SMALLER_SIDE, CANVAS_WIDTH - SMALLER_SIDE, SMALLER_SIDE);
         canvas.add(wall3);
         walls.add(wall3);
+        wallGroup.add(wall3);
+
 
         Wall wall4 = new Wall(0, SMALLER_SIDE, SMALLER_SIDE, CANVAS_HEIGHT - SMALLER_SIDE);
         canvas.add(wall4);
         walls.add(wall4);
+        wallGroup.add(wall4);
     }
 
     /**
