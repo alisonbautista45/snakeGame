@@ -48,6 +48,8 @@ public class SnakeGame {
 
         private List<Button> buttons = new ArrayList<>();
         private List<GraphicsText> screenText = new ArrayList<>();
+
+        private GraphicsText score;
         
     public static void main(String[] args) {   
         SnakeGame snakeGame = new SnakeGame(); 
@@ -78,7 +80,11 @@ public class SnakeGame {
 
         wallManager = new WallManager(canvas);
 
-        collide = new Collision(snake, group, foodPieces, wallManager, canvas);              
+        collide = new Collision(snake, foodPieces, wallManager, canvas);    
+        
+        score = new GraphicsText("Score: " + numSegs);
+        score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
+
     }
 
     private void run() {
@@ -121,24 +127,28 @@ public class SnakeGame {
                 food.foodEaten(collide.eatsFood());
                 snake.addToPath(path);
                 snake.moveLeft();
+                following();
             }
             if(moveRight) {
                 addingSegments(path);
                 food.foodEaten(collide.eatsFood());
                 snake.addToPath(path);
                 snake.moveRight();
+                following();
             }
             if(moveUp) {
                 addingSegments(path);
                 food.foodEaten(collide.eatsFood());
                 snake.addToPath(path);
                 snake.moveUp();
+                following();
             }
             if(moveDown) {
                 addingSegments(path);
                 food.foodEaten(collide.eatsFood());
                 snake.addToPath(path);
                 snake.moveDown();
+                following();
             }
         });    
 
@@ -150,14 +160,15 @@ public class SnakeGame {
             segments = new Segments(snake, path, numSegs, group);
             segments.addToGroup();
             allSegments.add(segments);
+            updateScore();
         }
+    }
+
+    private void following() { 
         for(Segments segs : allSegments) {
             segs.follow();
         }
     }
-
-       
-
 
     private void checkForCollision() {
         if (collide.wallCollision()) {
@@ -169,6 +180,15 @@ public class SnakeGame {
             canvas.remove(segments);
         }
     }
+
+    private void updateScore() {
+        canvas.remove(score);
+        score = new GraphicsText("Score: " + numSegs);
+        score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
+        canvas.add(score);
+    }
+
+        
 
     // ---------------------------------------
 
@@ -214,6 +234,7 @@ public class SnakeGame {
             for (GraphicsText text : screenText) {
                 canvas.remove(text);
             }
+            canvas.add(score);
             run();
         });
     }

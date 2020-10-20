@@ -1,11 +1,10 @@
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
+import edu.macalester.graphics.Point;
 
 public class Collision {
 
     private Snake snake;
-
-    private GraphicsGroup group;
 
     private GraphicsGroup foodPieces;
 
@@ -22,8 +21,7 @@ public class Collision {
      * 
      */
 
-    public Collision (Snake snake, GraphicsGroup group, GraphicsGroup foodPieces, WallManager wallManager, CanvasWindow canvas) {
-        this.group = group;
+    public Collision (Snake snake, GraphicsGroup foodPieces, WallManager wallManager, CanvasWindow canvas) {
         this.foodPieces = foodPieces;
         this.snake = snake;
         this.wallManager = wallManager;
@@ -31,41 +29,71 @@ public class Collision {
     }
 
     public boolean eatsFood() {
-        double X = snake.getX();
-        double Y = snake.getY();
-        if (foodPieces.getElementAt(X - 0.1, Y - 0.1) == null){
+        Point leftEye = snake.snakeEyes().get(0);
+        Point rightEye = snake.snakeEyes().get(1);
+
+        if (foodPieces.getElementAt(leftEye) == null && 
+                    foodPieces.getElementAt(rightEye) == null){
             return false;
         }
+        else if (foodPieces.getElementAt(leftEye) != null) {
+            foodPieces.remove(foodPieces.getElementAt(leftEye));
+            return true;
+        }
         else {
-            foodPieces.remove(foodPieces.getElementAt(X - 0.1, Y - 0.1));
+            foodPieces.remove(foodPieces.getElementAt(rightEye));
             return true;
         }
     }
 
     public boolean eatsFood2() {
-        double X = snake.getX();
-        double Y = snake.getY();
-        if (foodPieces.getElementAt(X - 0.1, Y - 0.1) == null){
+        Point leftEye = snake.snakeEyes().get(0);
+        Point rightEye = snake.snakeEyes().get(1);
+
+        if (foodPieces.getElementAt(leftEye) == null && 
+                    foodPieces.getElementAt(rightEye) == null){
             return false;
         }
-        else {
+        else if (foodPieces.getElementAt(leftEye) != null) {
             return true;
+        }
+        else if (foodPieces.getElementAt(rightEye) != null) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
     public boolean wallCollision() {
         GraphicsGroup wallGroup = wallManager.getWallGroup();
-        if (wallGroup.getElementAt(snake.getCenter()) != null) {
-            return true;
-        } else {
+        Point leftEye = snake.snakeEyes().get(0);
+        Point rightEye = snake.snakeEyes().get(1);
+
+        if (wallGroup.getElementAt(leftEye) == null && 
+                    foodPieces.getElementAt(rightEye) == null){
             return false;
         }
-
-    }
-    public boolean snakeCollision() {
-        if (canvas.getElementAt(snake.getCenter()) instanceof Segments) {
+        else if (wallGroup.getElementAt(leftEye) != null) {
             return true;
-        } else{
+        }
+        else if (wallGroup.getElementAt(rightEye) != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean snakeCollision() {
+        Point leftEye = snake.snakeEyes().get(0);
+        Point rightEye = snake.snakeEyes().get(1);
+
+        if (canvas.getElementAt(leftEye) instanceof Segments) {
+            return true;
+        }
+        else if (canvas.getElementAt(rightEye) instanceof Segments) {
+            return true;
+        }
+        else {
             return false;
         }
     }

@@ -11,6 +11,11 @@ public class FoodManager {
 
     private Point location;
 
+    private Point check1;
+    private Point check2;
+    private Point check3;
+    private Point check4;
+
     private GraphicsGroup group;
 
     private int x;
@@ -32,7 +37,6 @@ public class FoodManager {
      */
      public void foodEaten(boolean isEaten) {
         if (isEaten) {
-            newLocation();
             addFood();
         }
      }
@@ -46,6 +50,7 @@ public class FoodManager {
      */
     public void addFood() {
         food = new Food(location);
+        newLocation();
         group.add(food);
     }
 
@@ -57,6 +62,24 @@ public class FoodManager {
         x = new Random().nextInt(canvas.getWidth());
         y = new Random().nextInt(canvas.getHeight());
         location = new Point(x, y);
+        check1 = new Point(x + food.getRadius(), y + food.getRadius());
+        check2 = new Point(x + food.getRadius(), y - food.getRadius());
+        check3 = new Point(x - food.getRadius(), y + food.getRadius());
+        check4 = new Point(x - food.getRadius(), y - food.getRadius());
+        while(canvas.getElementAt(check1) != null || 
+                canvas.getElementAt(check2) != null || 
+                canvas.getElementAt(check3) != null || 
+                canvas.getElementAt(check4) != null ||
+                x - food.getRadius() < 0 || x + food.getRadius() > canvas.getWidth() ||
+                y - food.getRadius() < 0 || y + food.getRadius() > canvas.getHeight()) {
+            x = new Random().nextInt(canvas.getWidth());
+            y = new Random().nextInt(canvas.getHeight());
+            location = new Point(x, y);
+            check1 = new Point(x + food.getRadius(), y + food.getRadius());
+            check2 = new Point(x + food.getRadius(), y - food.getRadius());
+            check3 = new Point(x - food.getRadius(), y + food.getRadius());
+            check4 = new Point(x - food.getRadius(), y - food.getRadius());
+        }
         food.setCenter(location);
     }
 

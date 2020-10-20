@@ -9,6 +9,7 @@ public class Segments extends Snake{
     private List<Point> path;
     private int distance;
     private static GraphicsGroup segments;
+    private Snake snake;
 
 
     public Segments(Snake snake, List<Point> path, int distance, GraphicsGroup segments) {
@@ -16,6 +17,7 @@ public class Segments extends Snake{
         this.setFilled(true);
         this.path = path;
         this.distance = distance;
+        this.snake = snake;
         this.segments = segments;
     }
 
