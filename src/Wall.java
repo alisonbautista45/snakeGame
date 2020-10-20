@@ -7,11 +7,11 @@ import java.awt.Color;
 
 public class Wall extends Rectangle {
 
-    public static final Color YELLOW = new Color(238, 186, 76);
-    public static final Color RED = new Color(227, 73, 59);
-    public static final Color AQUA = new Color(35, 181, 175);
-    public static final Color LIGHT_AQUA = new Color(169, 221, 217);
-    public static final Color DARK_GREAY = new Color(58, 58, 60);
+    private Color YELLOW = SnakeGame.YELLOW;
+    private Color RED = SnakeGame.RED;
+    private Color AQUA = SnakeGame.AQUA;
+    private Color LIGHT_AQUA = SnakeGame.LIGHT_AQUA;
+    private Color DARK_GRAY = SnakeGame.DARK_GRAY;
 
     public Wall(double x, double y, double width, double height) {
         super(x, y, width, height);
@@ -21,6 +21,7 @@ public class Wall extends Rectangle {
         this.setFilled(true);
         this.setFillColor(colors.get(random.nextInt(colors.size())));
         this.setStroked(true);
+        this.setStrokeColor(DARK_GRAY);
     }
     
 }

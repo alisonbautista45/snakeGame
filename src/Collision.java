@@ -1,8 +1,4 @@
-import java.util.List;
-
-import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
-import edu.macalester.graphics.Point;
 
 public class Collision {
 
@@ -12,7 +8,7 @@ public class Collision {
 
     private GraphicsGroup foodPieces;
 
-    private CanvasWindow canvas;
+    private WallManager wallManager;
 
 
     /**
@@ -23,11 +19,11 @@ public class Collision {
      * 
      */
 
-    public Collision (Snake snake, GraphicsGroup group, GraphicsGroup foodPieces, CanvasWindow canvas) {
+    public Collision (Snake snake, GraphicsGroup group, GraphicsGroup foodPieces, WallManager wallManager) {
         this.group = group;
         this.foodPieces = foodPieces;
         this.snake = snake;
-        this.canvas = canvas;
+        this.wallManager = wallManager;
     }
 
     public boolean eatsFood() {
@@ -54,7 +50,8 @@ public class Collision {
     }
 
     public boolean wallCollision() {
-        if (canvas.getElementAt(snake.getCenter()) instanceof Wall) {
+        GraphicsGroup wallGroup = wallManager.getWallGroup();
+        if (wallGroup.getElementAt(snake.getCenter()) != null) {
             return true;
         } else {
             return false;
