@@ -50,6 +50,7 @@ public class SnakeGame {
         private List<GraphicsText> screenText = new ArrayList<>();
 
         private GraphicsText score;
+        private GraphicsText gameOverScreen;
         
     public static void main(String[] args) {   
         SnakeGame snakeGame = new SnakeGame(); 
@@ -173,11 +174,12 @@ public class SnakeGame {
     private void checkForCollision() {
         if (collide.wallCollision()) {
             System.out.println("-----> THERE HAS BEEN A COLLISION");
-            System.exit(0);
+            canvas.removeAll();
+            gameOverScreen();
         }
         if (collide.snakeCollision()){
-            segments.removeAll();
-            canvas.remove(segments);
+            canvas.removeAll();
+            gameOverScreen();
         }
     }
 
@@ -281,5 +283,13 @@ public class SnakeGame {
             wallManager.removeWalls();
             wallManager.generateHarderMaze();
         });
+    }
+    private void gameOverScreen(){
+        gameOverScreen = new GraphicsText();
+        gameOverScreen.setFont(FontStyle.ITALIC, 65);
+        gameOverScreen.setText("Game Over");
+        gameOverScreen.setFillColor(Color.RED);
+        canvas.add(gameOverScreen);
+        gameOverScreen.setCenter(canvas.getCenter());
     }
 }
