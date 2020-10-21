@@ -48,9 +48,11 @@ public class Snake extends Rectangle {
         dx = - speed;
         dy = 0;
         if (this.getX() + dx <= 0) {
+            this.setX(canvas.getWidth());
             dx = 0;
         }
         if (this.getX() + width + dx >= canvas.getWidth()) {
+            this.setX(0);
             dx = 0;
         }
         this.updatePosition();
@@ -67,9 +69,11 @@ public class Snake extends Rectangle {
         dx = speed;
         dy = 0;
         if (this.getX() + dx <= 0) {
+            this.setX(canvas.getWidth()); 
             dx = 0;
         }
         if (this.getX() + width + dx >= canvas.getWidth()) {
+            this.setX(0);
             dx = 0;
         }
         this.updatePosition();
@@ -84,9 +88,11 @@ public class Snake extends Rectangle {
         dx = 0;
         dy = - speed;
         if (this.getY() + dy <= 0) {
+            this.setY(600);
             dy = 0;
         }
         if (this.getY() + width + dy >= canvas.getHeight()) {
+            this.setY(0);
             dy = 0;
         }
         this.updatePosition();
@@ -100,9 +106,11 @@ public class Snake extends Rectangle {
         dx = 0;
         dy = speed;
         if (this.getY() + dy <= 0) {
+            this.setY(canvas.getHeight());
             dy = 0;
         }
         if (this.getY() + width + dy >= canvas.getHeight()) {
+            this.setY(0);
             dy = 0;
         }
         this.updatePosition();

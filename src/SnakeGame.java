@@ -95,25 +95,25 @@ public class SnakeGame {
         canvas.add(foodPieces);
 
         canvas.onKeyDown(event-> {
-            if (event.getKey() == Key.LEFT_ARROW) {
+            if (event.getKey() == Key.LEFT_ARROW && moveRight != true) {
                 moveRight = false;
                 moveUp = false;
                 moveDown = false;
                 moveLeft = true;
             }
-            if (event.getKey() == Key.RIGHT_ARROW) {
+            if (event.getKey() == Key.RIGHT_ARROW && moveLeft != true) {
                 moveLeft = false;
                 moveUp = false;
                 moveDown = false;
                 moveRight = true;
             }
-            if (event.getKey() == Key.UP_ARROW) {
+            if (event.getKey() == Key.UP_ARROW && moveDown != true) {
                 moveLeft = false;
                 moveRight = false;
                 moveDown = false;
                 moveUp = true;
             }
-            if (event.getKey() == Key.DOWN_ARROW) {
+            if (event.getKey() == Key.DOWN_ARROW && moveUp != true) {
                 moveLeft = false;
                 moveRight = false;
                 moveUp = false;
