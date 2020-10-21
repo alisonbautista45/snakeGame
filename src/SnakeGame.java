@@ -169,9 +169,25 @@ public class SnakeGame {
 
     private void following() { 
         for(Segments segs : allSegments) {
+            if (allSegments.get(numSegs - 1) == segs) {
+                segs.setScale(0.4);
+                segs.setStrokeWidth(0.4);
+            }
+            else if (allSegments.get(numSegs - 2) == segs) {
+                segs.setScale(0.6);
+                segs.setStrokeWidth(0.4);
+            }
+            else if (allSegments.get(numSegs - 3) == segs) {
+                segs.setScale(0.8);
+                segs.setStrokeWidth(0.4);
+            }
+            else {
+                segs.setScale(1);
+            }
             segs.follow();
         }
     }
+
 
     private void checkForCollision() {
         if (collide.wallCollision()) {

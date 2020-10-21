@@ -3,10 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.GraphicsGroup;
+import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
 
-public class Snake extends Rectangle {
+public class Snake extends GraphicsGroup {
     private int i = 0;
     private double speed = 2;
     private static double x;
@@ -22,17 +24,27 @@ public class Snake extends Rectangle {
     private boolean movingUp;
     private boolean movingDown;
 
+    private GraphicsObject snakeHeadLeft;
+    private GraphicsObject snakeHeadRight;
+    private GraphicsObject snakeHeadUp;
+    private GraphicsObject snakeHeadDown;
+    private GraphicsObject snakeHead;
+
+
     
     /**
      * Sets snake dimensions
      */
     public Snake(CanvasWindow canvas) {
-        super(x, y, width, height);
+        super(x, y);
+        snakeHead = SnakeHead.createSnakeHead(0);
+        snakeHeadLeft = SnakeHead.createSnakeHead(270);
+        snakeHeadRight = SnakeHead.createSnakeHead(90);
+        snakeHeadUp = SnakeHead.createSnakeHead(0);
+        snakeHeadDown = SnakeHead.createSnakeHead(180);
+        this.add(snakeHead);
         x = canvas.getWidth() * .4;
         y = canvas.getHeight() * 0.9;
-        this.setFilled(true);
-        this.setFillColor(SnakeGame.DARK_GREEN);
-        this.setStrokeColor(SnakeGame.DARK_GREEN);
         movingLeft = false;
         movingRight = false;
         movingUp = false;
@@ -60,6 +72,7 @@ public class Snake extends Rectangle {
         movingRight = false;
         movingUp = false;
         movingDown = false;
+        turnSnakeHead();
     }
 
     /**
@@ -81,6 +94,7 @@ public class Snake extends Rectangle {
         movingRight = true;
         movingUp = false;
         movingDown = false;
+        turnSnakeHead();
     }
     
 
@@ -100,6 +114,7 @@ public class Snake extends Rectangle {
         movingRight = false;
         movingUp = true;
         movingDown = false;
+        turnSnakeHead();
     }
 
     public void moveDown() {
@@ -118,6 +133,7 @@ public class Snake extends Rectangle {
         movingRight = false;
         movingUp = false;
         movingDown = true;
+        turnSnakeHead();
     }
 
     /**
@@ -129,56 +145,108 @@ public class Snake extends Rectangle {
 
     public void addToPath(List<Point> path) {
         Point point = new Point(this.getX(), this.getY());
-        if (movingLeft || movingRight) {
+        if (movingLeft) {
             if ((i % 32) < 4) {
-                point = new Point(this.getX(), this.getY());
-            }
-            else if ((i % 32) >= 4 && (i % 32) < 8) {
-                point = new Point(this.getX(), this.getY() + 1.25);
-            }
-            else if ((i % 32) >= 8 && (i % 32) < 12) {
-                point = new Point(this.getX(), this.getY() + 2.5);
-            }
-            else if ((i % 32) >= 12 && (i % 32) < 16) {
-                point = new Point(this.getX(), this.getY() + 1.25);
-            }
-            else if ((i % 32) >= 16 && (i % 32) < 20) {
-                point = new Point(this.getX(), this.getY());
-            }
-            else if ((i % 32) >= 20 && (i % 32) < 24) {
-                point = new Point(this.getX(), this.getY() - 1.25);
-            }
-            else if ((i % 32) >= 24 && (i % 32) < 28) {
-                point = new Point(this.getX(), this.getY() - 2.5);
-            }
-            else if ((i % 32) >= 28 && (i % 32) < 32) {
-                point = new Point(this.getX(), this.getY() - 1.25);
-            }
-        }
-        else if (movingUp || movingDown) {
-            if ((i % 32) < 4) {
-                point = new Point(this.getX(), this.getY());
-            }
-            else if ((i % 32) >= 4 && (i % 32) < 8) {
-                point = new Point(this.getX() + 1.25, this.getY());
-            }
-            else if ((i % 32) >= 8 && (i % 32) < 12) {
                 point = new Point(this.getX() + 2.5, this.getY());
             }
+            else if ((i % 32) >= 4 && (i % 32) < 8) {
+                point = new Point(this.getX() + 2.5, this.getY() + 1.25);
+            }
+            else if ((i % 32) >= 8 && (i % 32) < 12) {
+                point = new Point(this.getX() + 2.5, this.getY() + 2.5);
+            }
             else if ((i % 32) >= 12 && (i % 32) < 16) {
-                point = new Point(this.getX() + 1.25, this.getY());
+                point = new Point(this.getX() + 2.5, this.getY() + 1.25);
             }
             else if ((i % 32) >= 16 && (i % 32) < 20) {
-                point = new Point(this.getX(), this.getY());
+                point = new Point(this.getX() + 2.5, this.getY());
             }
             else if ((i % 32) >= 20 && (i % 32) < 24) {
-                point = new Point(this.getX() - 1.25, this.getY());
+                point = new Point(this.getX() + 2.5, this.getY() - 1.25);
             }
             else if ((i % 32) >= 24 && (i % 32) < 28) {
-                point = new Point(this.getX() - 2.5, this.getY());
+                point = new Point(this.getX() + 2.5, this.getY() - 2.5);
             }
             else if ((i % 32) >= 28 && (i % 32) < 32) {
-                point = new Point(this.getX() - 1.25, this.getY());
+                point = new Point(this.getX() + 2.5, this.getY() - 1.25);
+            }
+        }
+        else if (movingRight) {
+            if ((i % 32) < 4) {
+                point = new Point(this.getX() - 2.5, this.getY());
+            }
+            else if ((i % 32) >= 4 && (i % 32) < 8) {
+                point = new Point(this.getX() - 2.5, this.getY() + 1.25);
+            }
+            else if ((i % 32) >= 8 && (i % 32) < 12) {
+                point = new Point(this.getX() - 2.5, this.getY() + 2.5);
+            }
+            else if ((i % 32) >= 12 && (i % 32) < 16) {
+                point = new Point(this.getX() - 2.5, this.getY() + 1.25);
+            }
+            else if ((i % 32) >= 16 && (i % 32) < 20) {
+                point = new Point(this.getX() - 2.5, this.getY());
+            }
+            else if ((i % 32) >= 20 && (i % 32) < 24) {
+                point = new Point(this.getX() - 2.5, this.getY() - 1.25);
+            }
+            else if ((i % 32) >= 24 && (i % 32) < 28) {
+                point = new Point(this.getX() - 2.5, this.getY() - 2.5);
+            }
+            else if ((i % 32) >= 28 && (i % 32) < 32) {
+                point = new Point(this.getX() - 2.5, this.getY() - 1.25);
+            }
+        }
+        else if (movingUp) {
+            if ((i % 32) < 4) {
+                point = new Point(this.getX(), this.getY() + 2.5);
+            }
+            else if ((i % 32) >= 4 && (i % 32) < 8) {
+                point = new Point(this.getX() + 1.25, this.getY() + 2.5);
+            }
+            else if ((i % 32) >= 8 && (i % 32) < 12) {
+                point = new Point(this.getX() + 2.5, this.getY() + 2.5);
+            }
+            else if ((i % 32) >= 12 && (i % 32) < 16) {
+                point = new Point(this.getX() + 1.25, this.getY() + 2.5);
+            }
+            else if ((i % 32) >= 16 && (i % 32) < 20) {
+                point = new Point(this.getX(), this.getY() + 2.5);
+            }
+            else if ((i % 32) >= 20 && (i % 32) < 24) {
+                point = new Point(this.getX() - 1.25, this.getY() + 2.5);
+            }
+            else if ((i % 32) >= 24 && (i % 32) < 28) {
+                point = new Point(this.getX() - 2.5, this.getY() + 2.5);
+            }
+            else if ((i % 32) >= 28 && (i % 32) < 32) {
+                point = new Point(this.getX() - 1.25, this.getY() + 2.5);
+            }
+        }
+        else if (movingDown) {
+            if ((i % 32) < 4) {
+                point = new Point(this.getX(), this.getY() - 2.5);
+            }
+            else if ((i % 32) >= 4 && (i % 32) < 8) {
+                point = new Point(this.getX() + 1.25, this.getY() - 2.5);
+            }
+            else if ((i % 32) >= 8 && (i % 32) < 12) {
+                point = new Point(this.getX() + 2.5, this.getY() - 2.5);
+            }
+            else if ((i % 32) >= 12 && (i % 32) < 16) {
+                point = new Point(this.getX() + 1.25, this.getY() - 2.5);
+            }
+            else if ((i % 32) >= 16 && (i % 32) < 20) {
+                point = new Point(this.getX(), this.getY() - 2.5);
+            }
+            else if ((i % 32) >= 20 && (i % 32) < 24) {
+                point = new Point(this.getX() - 1.25, this.getY() - 2.5);
+            }
+            else if ((i % 32) >= 24 && (i % 32) < 28) {
+                point = new Point(this.getX() - 2.5, this.getY() - 2.5);
+            }
+            else if ((i % 32) >= 28 && (i % 32) < 32) {
+                point = new Point(this.getX() - 1.25, this.getY() - 2.5);
             }
         }
         i++;
@@ -214,4 +282,25 @@ public class Snake extends Rectangle {
         eyes.add(rightEye);
         return eyes;
     }
+
+    public void turnSnakeHead() {
+        this.remove(snakeHead);
+        if (movingLeft) {
+            snakeHead = snakeHeadLeft;
+            this.add(snakeHead);
+        }
+        else if (movingRight) {
+            snakeHead = snakeHeadRight;
+            this.add(snakeHead);
+        }
+        else if (movingDown) {
+            snakeHead = snakeHeadDown;
+            this.add(snakeHead);
+        }
+        else if (movingUp) {
+            snakeHead = snakeHeadUp;
+            this.add(snakeHead);
+        }
+}
+
 }
