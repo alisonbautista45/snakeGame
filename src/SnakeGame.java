@@ -122,6 +122,7 @@ public class SnakeGame {
         });   
 
         canvas.animate(() -> {
+            
             checkForCollision();
 
             if(moveLeft) { 
@@ -174,7 +175,6 @@ public class SnakeGame {
 
     private void checkForCollision() {
         if (collide.wallCollision()) {
-            System.out.println("-----> THERE HAS BEEN A COLLISION");
             canvas.removeAll();
             gameOverScreen();
         }
@@ -285,12 +285,26 @@ public class SnakeGame {
             wallManager.generateHarderMaze();
         });
     }
-    private void gameOverScreen(){
+
+    private void gameOverScreen() {
         gameOverScreen = new GraphicsText();
         gameOverScreen.setFont(FontStyle.ITALIC, 65);
         gameOverScreen.setText("Game Over");
         gameOverScreen.setFillColor(Color.RED);
         canvas.add(gameOverScreen);
         gameOverScreen.setCenter(canvas.getCenter());
+
+        replayGame();
+    }
+
+    private void replayGame() {
+        Button replay = new Button("replay");
+        replay.setCenter(CANVAS_WIDTH / 2, 2 * CANVAS_HEIGHT / 3);
+        canvas.add(replay);
+        replay.onClick(() -> {
+            canvas.removeAll();
+            SnakeGame snakeGame = new SnakeGame();
+            snakeGame.homeScreen();
+        });
     }
 }
