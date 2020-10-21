@@ -95,25 +95,29 @@ public class SnakeGame {
         canvas.add(foodPieces);
 
         canvas.onKeyDown(event-> {
-            if (event.getKey() == Key.LEFT_ARROW && moveRight != true) {
+            if ((event.getKey() == Key.LEFT_ARROW && moveRight != true) || 
+            (event.getKey() == Key.LEFT_ARROW && numSegs == 0)) {
                 moveRight = false;
                 moveUp = false;
                 moveDown = false;
                 moveLeft = true;
             }
-            if (event.getKey() == Key.RIGHT_ARROW && moveLeft != true) {
+            if ((event.getKey() == Key.RIGHT_ARROW && moveLeft != true) ||
+            (event.getKey() == Key.RIGHT_ARROW && numSegs == 0)) {
                 moveLeft = false;
                 moveUp = false;
                 moveDown = false;
                 moveRight = true;
             }
-            if (event.getKey() == Key.UP_ARROW && moveDown != true) {
+            if ((event.getKey() == Key.UP_ARROW && moveDown != true) ||
+            (event.getKey() == Key.UP_ARROW && numSegs == 0)) {
                 moveLeft = false;
                 moveRight = false;
                 moveDown = false;
                 moveUp = true;
             }
-            if (event.getKey() == Key.DOWN_ARROW && moveUp != true) {
+            if ((event.getKey() == Key.DOWN_ARROW && moveUp != true) ||
+            (event.getKey() == Key.DOWN_ARROW && numSegs == 0)) {
                 moveLeft = false;
                 moveRight = false;
                 moveUp = false;
@@ -319,8 +323,8 @@ public class SnakeGame {
         canvas.add(replay);
         replay.onClick(() -> {
             canvas.removeAll();
-            SnakeGame snakeGame = new SnakeGame();
-            snakeGame.homeScreen();
+            SnakeGame snakeGame2 = new SnakeGame();
+            snakeGame2.homeScreen();
         });
     }
 }
