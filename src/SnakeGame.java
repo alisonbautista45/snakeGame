@@ -20,6 +20,7 @@ public class SnakeGame {
         public static final Color AQUA = new Color(35, 181, 175);
         public static final Color LIGHT_AQUA = new Color(169, 221, 217);
         public static final Color DARK_GRAY = new Color(58, 58, 60);
+        public static final Color DARK_GREEN = new Color(0, 153, 0);
 
         private static CanvasWindow canvas;
         private Snake snake;

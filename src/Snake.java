@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,13 +7,14 @@ import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
 
 public class Snake extends Rectangle {
+    private int i = 0;
     private double speed = 2;
     private static double x;
     private static double y;
     private double dx = 0;
     private double dy = 0;
-    private static double width = 10;
-    private static double height = 10;
+    private static double width = 15;
+    private static double height = 15;
     public CanvasWindow canvas;
 
     private boolean movingLeft;
@@ -29,6 +31,8 @@ public class Snake extends Rectangle {
         x = canvas.getWidth() * .4;
         y = canvas.getHeight() * 0.9;
         this.setFilled(true);
+        this.setFillColor(SnakeGame.DARK_GREEN);
+        this.setStrokeColor(SnakeGame.DARK_GREEN);
         movingLeft = false;
         movingRight = false;
         movingUp = false;
@@ -110,13 +114,66 @@ public class Snake extends Rectangle {
 
     /**
      * Updates the postion of the snake
-     */
+     */ 
     public void updatePosition() {
         this.setPosition(this.getX() + dx, this.getY() + dy);
     }
 
     public void addToPath(List<Point> path) {
         Point point = new Point(this.getX(), this.getY());
+        if (movingLeft || movingRight) {
+            if ((i % 32) < 4) {
+                point = new Point(this.getX(), this.getY());
+            }
+            else if ((i % 32) >= 4 && (i % 32) < 8) {
+                point = new Point(this.getX(), this.getY() + 1.25);
+            }
+            else if ((i % 32) >= 8 && (i % 32) < 12) {
+                point = new Point(this.getX(), this.getY() + 2.5);
+            }
+            else if ((i % 32) >= 12 && (i % 32) < 16) {
+                point = new Point(this.getX(), this.getY() + 1.25);
+            }
+            else if ((i % 32) >= 16 && (i % 32) < 20) {
+                point = new Point(this.getX(), this.getY());
+            }
+            else if ((i % 32) >= 20 && (i % 32) < 24) {
+                point = new Point(this.getX(), this.getY() - 1.25);
+            }
+            else if ((i % 32) >= 24 && (i % 32) < 28) {
+                point = new Point(this.getX(), this.getY() - 2.5);
+            }
+            else if ((i % 32) >= 28 && (i % 32) < 32) {
+                point = new Point(this.getX(), this.getY() - 1.25);
+            }
+        }
+        else if (movingUp || movingDown) {
+            if ((i % 32) < 4) {
+                point = new Point(this.getX(), this.getY());
+            }
+            else if ((i % 32) >= 4 && (i % 32) < 8) {
+                point = new Point(this.getX() + 1.25, this.getY());
+            }
+            else if ((i % 32) >= 8 && (i % 32) < 12) {
+                point = new Point(this.getX() + 2.5, this.getY());
+            }
+            else if ((i % 32) >= 12 && (i % 32) < 16) {
+                point = new Point(this.getX() + 1.25, this.getY());
+            }
+            else if ((i % 32) >= 16 && (i % 32) < 20) {
+                point = new Point(this.getX(), this.getY());
+            }
+            else if ((i % 32) >= 20 && (i % 32) < 24) {
+                point = new Point(this.getX() - 1.25, this.getY());
+            }
+            else if ((i % 32) >= 24 && (i % 32) < 28) {
+                point = new Point(this.getX() - 2.5, this.getY());
+            }
+            else if ((i % 32) >= 28 && (i % 32) < 32) {
+                point = new Point(this.getX() - 1.25, this.getY());
+            }
+        }
+        i++;
         path.add(point);
     }
 
@@ -126,23 +183,23 @@ public class Snake extends Rectangle {
     
     public List<Point> snakeEyes() {
         List<Point> eyes = new ArrayList<>();
-        Point leftEye = new Point(this.getCenter().getX() + 5, this.getCenter().getY() - 5.05);
-        Point rightEye = new Point(this.getCenter().getX() - 5, this.getCenter().getY() - 5.05);
+        Point leftEye = new Point(this.getCenter().getX() + 7.5, this.getCenter().getY() - 7.55);
+        Point rightEye = new Point(this.getCenter().getX() - 7.5, this.getCenter().getY() - 7.55);
         if (movingLeft) {
-            leftEye = new Point(this.getCenter().getX() - 5.05, this.getCenter().getY() + 5);
-            rightEye = new Point(this.getCenter().getX() - 5.05, this.getCenter().getY() - 5);
+            leftEye = new Point(this.getCenter().getX() - 7.55, this.getCenter().getY() + 7.5);
+            rightEye = new Point(this.getCenter().getX() - 7.55, this.getCenter().getY() - 7.5);
         }
         if (movingRight) {
-            leftEye = new Point(this.getCenter().getX() + 5.05, this.getCenter().getY() - 5);
-            rightEye = new Point(this.getCenter().getX() + 5.05, this.getCenter().getY() + 5);
+            leftEye = new Point(this.getCenter().getX() + 7.55, this.getCenter().getY() - 7.5);
+            rightEye = new Point(this.getCenter().getX() + 7.55, this.getCenter().getY() + 7.5);
         }
         if (movingUp) {
-            leftEye = new Point(this.getCenter().getX() + 5, this.getCenter().getY() - 5.05);
-            rightEye = new Point(this.getCenter().getX() - 5, this.getCenter().getY() - 5.05);
+            leftEye = new Point(this.getCenter().getX() + 7.5, this.getCenter().getY() - 7.55);
+            rightEye = new Point(this.getCenter().getX() - 7.5, this.getCenter().getY() - 7.55);
         }
         if (movingDown) {
-            leftEye = new Point(this.getCenter().getX() + 5, this.getCenter().getY() + 5.05);
-            rightEye = new Point(this.getCenter().getX() - 5, this.getCenter().getY() + 5.05);
+            leftEye = new Point(this.getCenter().getX() + 7.5, this.getCenter().getY() + 7.55);
+            rightEye = new Point(this.getCenter().getX() - 7.5, this.getCenter().getY() + 7.55);
         }
         eyes.clear();
         eyes.add(leftEye);

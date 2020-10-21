@@ -9,7 +9,7 @@ public class Food extends Ellipse{
     private Ellipse food;
 
     //how big our food that shows up will be
-    private static int radius = 6;
+    private static int radius = 8;
 
     //color of food
     private Color color;
