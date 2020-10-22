@@ -19,7 +19,6 @@ public class SnakeGameWindow {
             if(currentSnakeGame != null) { 
                 currentSnakeGame.animate();
             }
-
         });
     }
 

@@ -12,7 +12,6 @@ public class Segments extends Rectangle {
     private int distance;
     private static GraphicsGroup segments;
 
-
     public Segments(Snake snake, List<Point> path, int distance, GraphicsGroup segments) {
         super(0, 0, 10, 10);
         this.setFilled(true);

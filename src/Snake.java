@@ -1,12 +1,9 @@
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Point;
-import edu.macalester.graphics.Rectangle;
+
 
 public class Snake extends GraphicsGroup{
     private int i = 0;
@@ -36,7 +33,7 @@ public class Snake extends GraphicsGroup{
      */
     public Snake(GraphicsGroup group) {
         x = SnakeGame.CANVAS_WIDTH * 0.5;
-        y = SnakeGame.CANVAS_HEIGHT * 0.9;
+        y = SnakeGame.CANVAS_HEIGHT * 0.5;
         snakeHead = SnakeHead.createSnakeHead(0);
         snakeHeadLeft = SnakeHead.createSnakeHead(270);
         snakeHeadRight = SnakeHead.createSnakeHead(90);
@@ -123,7 +120,7 @@ public class Snake extends GraphicsGroup{
     }
 
     private void startPosition() {
-        this.setPosition(SnakeGame.CANVAS_WIDTH * 0.5, SnakeGame.CANVAS_HEIGHT * 0.9);
+        this.setPosition(SnakeGame.CANVAS_WIDTH * 0.5, SnakeGame.CANVAS_HEIGHT * 0.5);
     }
 
     public void addToPath(List<Point> path) {

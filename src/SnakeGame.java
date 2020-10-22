@@ -5,14 +5,14 @@ import edu.macalester.graphics.events.Key;
 import edu.macalester.graphics.events.KeyboardEvent;
 import edu.macalester.graphics.ui.Button;
 import edu.macalester.graphics.GraphicsGroup;
+import edu.macalester.graphics.Point;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
 
-import edu.macalester.graphics.Point;
-
 public class SnakeGame extends GraphicsGroup {
+
         public static final int CANVAS_WIDTH = 800;
         public static final int CANVAS_HEIGHT = 600;
 
@@ -55,6 +55,9 @@ public class SnakeGame extends GraphicsGroup {
         private CanvasWindow canvas;
 
         private SnakeGameWindow window;
+
+        private GraphicsGroup textLayer = new GraphicsGroup();
+
         
     public static void main(String[] args) {   
         SnakeGameWindow snakeGameWindow = new SnakeGameWindow(); 
@@ -79,11 +82,10 @@ public class SnakeGame extends GraphicsGroup {
         moveDown = false;
 
         food = new FoodManager(this);
-        
-
         snake = new Snake(this);
 
         wallManager = new WallManager(this);
+        this.add(wallManager);
 
         collide = new Collision(snake, food, wallManager, this);    
         
@@ -95,7 +97,7 @@ public class SnakeGame extends GraphicsGroup {
     private void run() {
         this.add(food);
         this.add(snake);
-        this.add(score);
+        textLayer.add(score);
     }
 
     private void addingSegments(List<Point> path) {
@@ -128,7 +130,6 @@ public class SnakeGame extends GraphicsGroup {
         }
     }
 
-
     private void checkForCollision() {
         if (collide.wallCollision()) {
             this.removeAll();
@@ -141,10 +142,10 @@ public class SnakeGame extends GraphicsGroup {
     }
 
     private void updateScore() {
-        this.remove(score);
+        textLayer.remove(score);
         score = new GraphicsText("Score: " + numSegs);
         score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
-        this.add(score);
+        textLayer.add(score);
     }
 
     public void onKeyDown(KeyboardEvent event) {
@@ -207,10 +208,11 @@ public class SnakeGame extends GraphicsGroup {
     // ---------------------------------------
 
     private void homeScreen() {
+        canvas.add(this);
+        canvas.add(textLayer);
         levelButtons();
         welcomeText();
         startButton();
-        canvas.add(this); 
     }
 
     private void welcomeText() {
@@ -219,29 +221,28 @@ public class SnakeGame extends GraphicsGroup {
         title.setFillColor(DARK_GRAY);
         title.setCenter(CANVAS_WIDTH / 5, CANVAS_HEIGHT / 3);
         title.setFont(FontStyle.BOLD, 80);
-        this.add(title);
+        textLayer.add(title);
         screenText.add(title);
-
         GraphicsText chooseLevel = new GraphicsText();
         chooseLevel.setText("Choose your level");
         chooseLevel.setFillColor(DARK_GRAY);
         chooseLevel.setCenter(CANVAS_WIDTH / 5, 2 * CANVAS_HEIGHT / 3);
         chooseLevel.setFont(FontStyle.BOLD, 60);
-        this.add(chooseLevel);
+        textLayer.add(chooseLevel);
         screenText.add(chooseLevel);
     }
 
     private void startButton() {
         Button start = new Button("click to start game");
         start.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-        this.add(start);
+        textLayer.add(start);
         buttons.add(start);
         start.onClick(() -> {
             for (Button button : buttons) {
-                this.remove(button);
+                textLayer.remove(button);
             }
             for (GraphicsText text : screenText) {
-                this.remove(text);
+                textLayer.remove(text);
             }
             run();
         });
@@ -250,12 +251,12 @@ public class SnakeGame extends GraphicsGroup {
     private void levelButtons() {
         Button basic = new Button("No obstacles");
         basic.setPosition(50, 3 * CANVAS_HEIGHT / 4);
-        this.add(basic);
+        textLayer.add(basic);
         buttons.add(basic);
         basic.onClick(() -> wallManager.removeWalls());
         Button borders = new Button("Borders");
         borders.setPosition(200, 3 * CANVAS_HEIGHT / 4);
-        this.add(borders);
+        textLayer.add(borders);
         buttons.add(borders);
         borders.onClick(() -> {
             wallManager.removeWalls();
@@ -264,7 +265,7 @@ public class SnakeGame extends GraphicsGroup {
 
         Button doors = new Button("Doors");
         doors.setPosition(300, 3 * CANVAS_HEIGHT / 4);
-        this.add(doors);
+        textLayer.add(doors);
         buttons.add(doors);
         doors.onClick(() -> {
             wallManager.removeWalls();
@@ -273,7 +274,7 @@ public class SnakeGame extends GraphicsGroup {
 
         Button simpleMaze = new Button("simple Maze");
         simpleMaze.setPosition(400, 3 * CANVAS_HEIGHT / 4);
-        this.add(simpleMaze);
+        textLayer.add(simpleMaze);
         buttons.add(simpleMaze);
         simpleMaze.onClick(() -> {
             wallManager.removeWalls();
@@ -282,7 +283,7 @@ public class SnakeGame extends GraphicsGroup {
 
         Button harderMaze = new Button("Not So Simple Maze");
         harderMaze.setPosition(550, 3 * CANVAS_HEIGHT / 4);
-        this.add(harderMaze);
+        textLayer.add(harderMaze);
         buttons.add(harderMaze);
         harderMaze.onClick(() -> {
             wallManager.removeWalls();
@@ -294,10 +295,12 @@ public class SnakeGame extends GraphicsGroup {
         gameOverScreen = new GraphicsText();
         gameOverScreen.setFont(FontStyle.ITALIC, 65);
         gameOverScreen.setText("Game Over");
-        gameOverScreen.setFillColor(Color.RED);
+        gameOverScreen.setFillColor(RED);
         this.removeAll();
         this.add(gameOverScreen);
-        Point center = new Point(SnakeGame.CANVAS_WIDTH / 2, SnakeGame.CANVAS_HEIGHT / 2);
+        score.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 4);
+        score.setFont(FontStyle.BOLD, 40);
+        Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
         gameOverScreen.setCenter(center);
         replayGame();
     }
@@ -308,9 +311,7 @@ public class SnakeGame extends GraphicsGroup {
         this.add(replay);
         replay.onClick(() -> {
             this.removeAll();
-            if (wallManager.getWallGroup() != null) {
-                wallManager.getWallGroup().removeAll();
-            }
+            textLayer.removeAll();
             window.newGame().homeScreen();
         });
     }

@@ -4,10 +4,6 @@ import edu.macalester.graphics.*;
 
 
 public class Food extends Ellipse{
-
-    //the actual food objects
-    private Ellipse food;
-
     //how big our food that shows up will be
     private static int radius = 8;
 
@@ -37,14 +33,6 @@ public class Food extends Ellipse{
     public double getCenterY() {
         return location.getY();
     }
-
-    // public Point getCenter() {
-    //     return location;
-    // }
-
-    // public void setCenter(Point newCenter) {
-    //     this.location = newCenter;
-    // }
 
     public void setRadius(int newRadius) {
         this.radius = newRadius;

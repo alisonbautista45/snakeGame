@@ -1,4 +1,3 @@
-import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
 
@@ -11,7 +10,6 @@ public class Collision {
     private WallManager wallManager;
 
     private GraphicsGroup group;
-
 
 
     /**
@@ -67,18 +65,17 @@ public class Collision {
     }
 
     public boolean wallCollision() {
-        GraphicsGroup wallGroup = wallManager.getWallGroup();
         Point leftEye = snake.snakeEyes().get(0);
         Point rightEye = snake.snakeEyes().get(1);
 
-        if (wallGroup.getElementAt(leftEye) == null && 
-                    foodPieces.getElementAt(rightEye) == null){
+        if (wallManager.getElementAt(leftEye) == null && 
+                    wallManager.getElementAt(rightEye) == null){
             return false;
         }
-        else if (wallGroup.getElementAt(leftEye) != null) {
+        else if (wallManager.getElementAt(leftEye) != null) {
             return true;
         }
-        else if (wallGroup.getElementAt(rightEye) != null) {
+        else if (wallManager.getElementAt(rightEye) != null) {
             return true;
         }
         return false;
