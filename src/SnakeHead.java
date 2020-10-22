@@ -8,7 +8,6 @@ public class SnakeHead {
 
     public SnakeHead(double degreesRotate) {
         createSnakeHead(degreesRotate);
-
     }
 
     public static void main(String[] args) {
@@ -18,9 +17,6 @@ public class SnakeHead {
 
     public static GraphicsGroup createSnakeHead(double degreesRotate) {
         GraphicsGroup group = new GraphicsGroup();
-
-        
-        
         group.add(createJawRight());
         group.add(createJawLeft());
         group.add(createMid());

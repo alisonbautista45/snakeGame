@@ -25,22 +25,7 @@ public class Food extends Ellipse{
         this.setFilled(true);
         this.setFillColor(color);
         this.setStrokeColor(color);
-        // radius = 3;
-        // makeFood();
     }
-
-    /**
-     * Makes the ellipse representing the food on the canvas with the given parameters
-     * from above
-     */
-    // public Ellipse makeFood() {
-    //     // food = new Ellipse(location.getX() - radius, location.getY() - radius, 
-    //     //                         radius * 2, radius * 2);
-    //     food.setFilled(true);
-    //     food.setFillColor(color);
-    //     food.setStrokeColor(color);
-    //     // return food;
-    // }
 
     public int getRadius() {
         return radius;

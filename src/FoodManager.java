@@ -3,9 +3,7 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
 
-public class FoodManager {
-
-    private CanvasWindow canvas;
+public class FoodManager extends GraphicsGroup {
 
     public Food food;
 
@@ -21,13 +19,12 @@ public class FoodManager {
     private int x;
     private int y;
 
-    FoodManager(CanvasWindow canvas, GraphicsGroup group) {
-        x = new Random().nextInt(canvas.getWidth());
-        y = new Random().nextInt(canvas.getHeight());
+    FoodManager(GraphicsGroup group) {
+        this.group = group;
+        x = new Random().nextInt(SnakeGame.CANVAS_WIDTH);
+        y = new Random().nextInt(SnakeGame.CANVAS_HEIGHT);
         location = new Point(x, y);
         food = new Food(location);
-        this.canvas = canvas;
-        this.group = group;
         addFood();
     }
 
@@ -35,11 +32,6 @@ public class FoodManager {
      * If the piece of food is eaten (isEaten), then the food dissapears and is added
      * to a new spot on the canvas.
      */
-     public void foodEaten(boolean isEaten) {
-        if (isEaten) {
-            addFood();
-        }
-     }
 
     /**
      * Removes piece of food from canvas
@@ -51,7 +43,7 @@ public class FoodManager {
     public void addFood() {
         food = new Food(location);
         newLocation();
-        group.add(food);
+        this.add(food);
     }
 
     /** 
@@ -59,21 +51,21 @@ public class FoodManager {
      * ability to see where snake is and not place food there.
      */
     public void newLocation() {
-        x = new Random().nextInt(canvas.getWidth());
-        y = new Random().nextInt(canvas.getHeight());
+        x = new Random().nextInt(SnakeGame.CANVAS_WIDTH);
+        y = new Random().nextInt(SnakeGame.CANVAS_HEIGHT);
         location = new Point(x, y);
         check1 = new Point(x + food.getRadius(), y + food.getRadius());
         check2 = new Point(x + food.getRadius(), y - food.getRadius());
         check3 = new Point(x - food.getRadius(), y + food.getRadius());
         check4 = new Point(x - food.getRadius(), y - food.getRadius());
-        while(canvas.getElementAt(check1) != null || 
-                canvas.getElementAt(check2) != null || 
-                canvas.getElementAt(check3) != null || 
-                canvas.getElementAt(check4) != null ||
-                x - food.getRadius() < 0 || x + food.getRadius() > canvas.getWidth() ||
-                y - food.getRadius() < 0 || y + food.getRadius() > canvas.getHeight()) {
-            x = new Random().nextInt(canvas.getWidth());
-            y = new Random().nextInt(canvas.getHeight());
+        while(group.getElementAt(check1) != null || 
+        group.getElementAt(check2) != null || 
+        group.getElementAt(check3) != null || 
+        group.getElementAt(check4) != null ||
+        x - food.getRadius() < 0 || x + food.getRadius() > SnakeGame.CANVAS_WIDTH ||
+        y - food.getRadius() < 0 || y + food.getRadius() > SnakeGame.CANVAS_HEIGHT) {
+            x = new Random().nextInt(SnakeGame.CANVAS_WIDTH);
+            y = new Random().nextInt(SnakeGame.CANVAS_HEIGHT);
             location = new Point(x, y);
             check1 = new Point(x + food.getRadius(), y + food.getRadius());
             check2 = new Point(x + food.getRadius(), y - food.getRadius());

@@ -8,16 +8,17 @@ import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
 
-public class Snake extends GraphicsGroup {
+public class Snake extends GraphicsGroup{
     private int i = 0;
     private double speed = 2;
+
     private static double x;
     private static double y;
     private double dx = 0;
     private double dy = 0;
     private static double width = 15;
     private static double height = 15;
-    public CanvasWindow canvas;
+    public GraphicsGroup group;
 
     private boolean movingLeft;
     private boolean movingRight;
@@ -29,28 +30,26 @@ public class Snake extends GraphicsGroup {
     private GraphicsObject snakeHeadUp;
     private GraphicsObject snakeHeadDown;
     private GraphicsObject snakeHead;
-
-
     
     /**
      * Sets snake dimensions
      */
-    public Snake(CanvasWindow canvas) {
-        super(x, y);
+    public Snake(GraphicsGroup group) {
+        x = SnakeGame.CANVAS_WIDTH * 0.5;
+        y = SnakeGame.CANVAS_HEIGHT * 0.9;
         snakeHead = SnakeHead.createSnakeHead(0);
         snakeHeadLeft = SnakeHead.createSnakeHead(270);
         snakeHeadRight = SnakeHead.createSnakeHead(90);
         snakeHeadUp = SnakeHead.createSnakeHead(0);
         snakeHeadDown = SnakeHead.createSnakeHead(180);
         this.add(snakeHead);
-        x = canvas.getWidth() * .4;
-        y = canvas.getHeight() * 0.9;
         movingLeft = false;
         movingRight = false;
         movingUp = false;
         movingDown = false;
-        this.canvas = canvas;
-        this.updatePosition();
+        this.group = group;
+        this.startPosition();
+        // this.updatePosition();
     }
 
     /**
@@ -60,7 +59,7 @@ public class Snake extends GraphicsGroup {
         dx = - speed;
         dy = 0;
         if (this.getX() + dx <= 0) {
-            this.setX(canvas.getWidth());
+            this.setX(SnakeGame.CANVAS_WIDTH);
         }
         this.updatePosition();
         movingLeft = true;
@@ -76,7 +75,7 @@ public class Snake extends GraphicsGroup {
     public void moveRight() {
         dx = speed;
         dy = 0;
-        if (this.getX() + width + dx >= canvas.getWidth()) {
+        if (this.getX() + width + dx >= SnakeGame.CANVAS_WIDTH) {
             this.setX(0);
         }
         this.updatePosition();
@@ -105,7 +104,7 @@ public class Snake extends GraphicsGroup {
     public void moveDown() {
         dx = 0;
         dy = speed;
-        if (this.getY() + width + dy >= canvas.getHeight()) {
+        if (this.getY() + width + dy >= SnakeGame.CANVAS_HEIGHT) {
             this.setY(0);
         }
         this.updatePosition();
@@ -121,6 +120,10 @@ public class Snake extends GraphicsGroup {
      */ 
     public void updatePosition() {
         this.setPosition(this.getX() + dx, this.getY() + dy);
+    }
+
+    private void startPosition() {
+        this.setPosition(SnakeGame.CANVAS_WIDTH * 0.5, SnakeGame.CANVAS_HEIGHT * 0.9);
     }
 
     public void addToPath(List<Point> path) {
@@ -234,7 +237,7 @@ public class Snake extends GraphicsGroup {
     }
 
     public void removeSnake (boolean snakeCollision){
-        canvas.remove(this);
+        group.remove(this);
     }
     
     public List<Point> snakeEyes() {

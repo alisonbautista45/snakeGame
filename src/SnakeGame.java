@@ -12,7 +12,7 @@ import java.awt.Color;
 
 import edu.macalester.graphics.Point;
 
-public class SnakeGame {
+public class SnakeGame extends GraphicsGroup {
         public static final int CANVAS_WIDTH = 800;
         public static final int CANVAS_HEIGHT = 600;
 
@@ -23,7 +23,6 @@ public class SnakeGame {
         public static final Color DARK_GRAY = new Color(58, 58, 60);
         public static final Color DARK_GREEN = new Color(0, 153, 0);
 
-        private CanvasWindow canvas;
         private Snake snake;
 
         private FoodManager food;
@@ -46,13 +45,14 @@ public class SnakeGame {
         private List<Point> path;
 
         private GraphicsGroup group = new GraphicsGroup();
-        private GraphicsGroup foodPieces = new GraphicsGroup();
 
         private List<Button> buttons = new ArrayList<>();
         private List<GraphicsText> screenText = new ArrayList<>();
 
         private GraphicsText score;
         private GraphicsText gameOverScreen;
+
+        private CanvasWindow canvas;
 
         private SnakeGameWindow window;
         
@@ -65,7 +65,7 @@ public class SnakeGame {
      * Main Snake game method that animates the canvas
      */
     public SnakeGame(CanvasWindow canvas, SnakeGameWindow window) {
-        
+
         this.canvas = canvas;
         this.window = window;
 
@@ -78,15 +78,14 @@ public class SnakeGame {
         moveUp = false;
         moveDown = false;
 
-        food = new FoodManager(canvas, foodPieces);
+        food = new FoodManager(this);
+        
 
-        snake = new Snake(canvas);
-        snake.setCenter(canvas.getWidth() * 0.5, canvas.getHeight() * 0.9);
-        group.add(snake);
+        snake = new Snake(this);
 
-        wallManager = new WallManager(canvas);
+        wallManager = new WallManager(this);
 
-        collide = new Collision(snake, foodPieces, wallManager, canvas);    
+        collide = new Collision(snake, food, wallManager, this);    
         
         score = new GraphicsText("Score: " + numSegs);
         score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
@@ -94,18 +93,17 @@ public class SnakeGame {
     }
 
     private void run() {
-        canvas.add(group);
-        canvas.add(foodPieces);    
+        this.add(food);
+        this.add(snake);
     }
 
     private void addingSegments(List<Point> path) {
-        if(collide.eatsFood2()) {
-            numSegs++;
-            segments = new Segments(snake, path, numSegs, group);
-            segments.addToGroup();
-            allSegments.add(segments);
-            updateScore();
-        }
+        numSegs++;
+        segments = new Segments(snake, path, numSegs, group);
+        segments.addToGroup();
+        allSegments.add(segments);
+        updateScore();
+        this.add(segments.getSegmentsGroup());
     }
 
     private void following() { 
@@ -132,20 +130,20 @@ public class SnakeGame {
 
     private void checkForCollision() {
         if (collide.wallCollision()) {
-            canvas.removeAll();
+            this.removeAll();
             gameOverScreen();
         }
         if (collide.snakeCollision()){
-            canvas.removeAll();
+            this.removeAll();
             gameOverScreen();
         }
     }
 
     private void updateScore() {
-        canvas.remove(score);
+        this.remove(score);
         score = new GraphicsText("Score: " + numSegs);
         score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
-        canvas.add(score);
+        this.add(score);
     }
 
     public void onKeyDown(KeyboardEvent event) {
@@ -181,9 +179,11 @@ public class SnakeGame {
 
     public void animate() {
             checkForCollision();
-            addingSegments(path);
-                food.foodEaten(collide.eatsFood());
-                snake.addToPath(path);
+            if (collide.eatsFood()) {
+                addingSegments(path);
+                food.addFood();
+            }
+            snake.addToPath(path);
             if(moveLeft) {
                 snake.moveLeft();
             }
@@ -209,6 +209,7 @@ public class SnakeGame {
         levelButtons();
         welcomeText();
         startButton();
+        canvas.add(this); 
     }
 
     private void welcomeText() {
@@ -217,7 +218,7 @@ public class SnakeGame {
         title.setFillColor(DARK_GRAY);
         title.setCenter(CANVAS_WIDTH / 5, CANVAS_HEIGHT / 3);
         title.setFont(FontStyle.BOLD, 80);
-        canvas.add(title);
+        this.add(title);
         screenText.add(title);
 
         GraphicsText chooseLevel = new GraphicsText();
@@ -225,24 +226,24 @@ public class SnakeGame {
         chooseLevel.setFillColor(DARK_GRAY);
         chooseLevel.setCenter(CANVAS_WIDTH / 5, 2 * CANVAS_HEIGHT / 3);
         chooseLevel.setFont(FontStyle.BOLD, 60);
-        canvas.add(chooseLevel);
+        this.add(chooseLevel);
         screenText.add(chooseLevel);
     }
 
     private void startButton() {
         Button start = new Button("click to start game");
         start.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-        canvas.add(start);
+        this.add(start);
         buttons.add(start);
 
         start.onClick(() -> {
             for (Button button : buttons) {
-                canvas.remove(button);
+                this.remove(button);
             }
             for (GraphicsText text : screenText) {
-                canvas.remove(text);
+                this.remove(text);
             }
-            canvas.add(score);
+            this.add(score);
             run();
         });
     }
@@ -250,13 +251,13 @@ public class SnakeGame {
     private void levelButtons() {
         Button basic = new Button("No obstacles");
         basic.setPosition(50, 3 * CANVAS_HEIGHT / 4);
-        canvas.add(basic);
+        this.add(basic);
         buttons.add(basic);
         basic.onClick(() -> wallManager.removeWalls());
 
         Button borders = new Button("Borders");
         borders.setPosition(200, 3 * CANVAS_HEIGHT / 4);
-        canvas.add(borders);
+        this.add(borders);
         buttons.add(borders);
         borders.onClick(() -> {
             wallManager.removeWalls();
@@ -265,7 +266,7 @@ public class SnakeGame {
 
         Button doors = new Button("Doors");
         doors.setPosition(300, 3 * CANVAS_HEIGHT / 4);
-        canvas.add(doors);
+        this.add(doors);
         buttons.add(doors);
         doors.onClick(() -> {
             wallManager.removeWalls();
@@ -274,7 +275,7 @@ public class SnakeGame {
 
         Button simpleMaze = new Button("simple Maze");
         simpleMaze.setPosition(400, 3 * CANVAS_HEIGHT / 4);
-        canvas.add(simpleMaze);
+        this.add(simpleMaze);
         buttons.add(simpleMaze);
         simpleMaze.onClick(() -> {
             wallManager.removeWalls();
@@ -283,7 +284,7 @@ public class SnakeGame {
 
         Button harderMaze = new Button("Not So Simple Maze");
         harderMaze.setPosition(550, 3 * CANVAS_HEIGHT / 4);
-        canvas.add(harderMaze);
+        this.add(harderMaze);
         buttons.add(harderMaze);
         harderMaze.onClick(() -> {
             wallManager.removeWalls();
@@ -296,17 +297,19 @@ public class SnakeGame {
         gameOverScreen.setFont(FontStyle.ITALIC, 65);
         gameOverScreen.setText("Game Over");
         gameOverScreen.setFillColor(Color.RED);
-        canvas.add(gameOverScreen);
-        gameOverScreen.setCenter(canvas.getCenter());
-
+        this.removeAll();
+        this.add(gameOverScreen);
+        Point center = new Point(SnakeGame.CANVAS_WIDTH / 2, SnakeGame.CANVAS_HEIGHT / 2);
+        gameOverScreen.setCenter(center);
         replayGame();
     }
 
     private void replayGame() {
         Button replay = new Button("replay");
         replay.setCenter(CANVAS_WIDTH / 2, 2 * CANVAS_HEIGHT / 3);
-        canvas.add(replay);
+        this.add(replay);
         replay.onClick(() -> {
+            this.removeAll();
             window.newGame().homeScreen();
         });
     }

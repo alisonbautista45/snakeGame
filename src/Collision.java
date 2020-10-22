@@ -6,11 +6,12 @@ public class Collision {
 
     private Snake snake;
 
-    private GraphicsGroup foodPieces;
+    private FoodManager foodPieces;
 
     private WallManager wallManager;
 
-    private CanvasWindow canvas;
+    private GraphicsGroup group;
+
 
 
     /**
@@ -21,11 +22,11 @@ public class Collision {
      * 
      */
 
-    public Collision (Snake snake, GraphicsGroup foodPieces, WallManager wallManager, CanvasWindow canvas) {
+    public Collision (Snake snake, FoodManager foodPieces, WallManager wallManager, GraphicsGroup group) {
         this.foodPieces = foodPieces;
         this.snake = snake;
         this.wallManager = wallManager;
-        this.canvas = canvas;
+        this.group = group;
     }
 
     public boolean eatsFood() {
@@ -87,10 +88,10 @@ public class Collision {
         Point leftEye = snake.snakeEyes().get(0);
         Point rightEye = snake.snakeEyes().get(1);
 
-        if (canvas.getElementAt(leftEye) instanceof Segments) {
+        if (group.getElementAt(leftEye) instanceof Segments) {
             return true;
         }
-        else if (canvas.getElementAt(rightEye) instanceof Segments) {
+        else if (group.getElementAt(rightEye) instanceof Segments) {
             return true;
         }
         else {
