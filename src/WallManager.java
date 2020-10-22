@@ -102,7 +102,7 @@ public class WallManager {
         walls.add(wall5);
         wallGroup.add(wall5);
 
-        Wall wall6 = new Wall(CANVAS_WIDTH - SMALLER_SIDE, 2 * CANVAS_HEIGHT / 3, SMALLER_SIDE, CANVAS_HEIGHT / 3);
+        Wall wall6 = new Wall(CANVAS_WIDTH - SMALLER_SIDE, 3 * CANVAS_HEIGHT / 4, SMALLER_SIDE, CANVAS_HEIGHT / 4);
         canvas.add(wall6);
         walls.add(wall6);
         wallGroup.add(wall6);

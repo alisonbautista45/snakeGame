@@ -2,6 +2,7 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.events.Key;
+import edu.macalester.graphics.events.KeyboardEvent;
 import edu.macalester.graphics.ui.Button;
 import edu.macalester.graphics.GraphicsGroup;
 
@@ -22,7 +23,7 @@ public class SnakeGame {
         public static final Color DARK_GRAY = new Color(58, 58, 60);
         public static final Color DARK_GREEN = new Color(0, 153, 0);
 
-        private static CanvasWindow canvas;
+        private CanvasWindow canvas;
         private Snake snake;
 
         private FoodManager food;
@@ -52,16 +53,21 @@ public class SnakeGame {
 
         private GraphicsText score;
         private GraphicsText gameOverScreen;
+
+        private SnakeGameWindow window;
         
     public static void main(String[] args) {   
-        SnakeGame snakeGame = new SnakeGame(); 
-        snakeGame.homeScreen();
+        SnakeGameWindow snakeGameWindow = new SnakeGameWindow(); 
+        snakeGameWindow.newGame().homeScreen();
     }
      
     /**
      * Main Snake game method that animates the canvas
      */
-    public SnakeGame() {
+    public SnakeGame(CanvasWindow canvas, SnakeGameWindow window) {
+        
+        this.canvas = canvas;
+        this.window = window;
 
         numSegs = 0;
 
@@ -71,8 +77,6 @@ public class SnakeGame {
         moveRight = false;
         moveUp = false;
         moveDown = false;
-
-        canvas = new CanvasWindow("Snake!", CANVAS_WIDTH, CANVAS_HEIGHT);
 
         food = new FoodManager(canvas, foodPieces);
 
@@ -90,75 +94,8 @@ public class SnakeGame {
     }
 
     private void run() {
-
         canvas.add(group);
-        canvas.add(foodPieces);
-
-        canvas.onKeyDown(event-> {
-            if ((event.getKey() == Key.LEFT_ARROW && moveRight != true) || 
-            (event.getKey() == Key.LEFT_ARROW && numSegs == 0)) {
-                moveRight = false;
-                moveUp = false;
-                moveDown = false;
-                moveLeft = true;
-            }
-            if ((event.getKey() == Key.RIGHT_ARROW && moveLeft != true) ||
-            (event.getKey() == Key.RIGHT_ARROW && numSegs == 0)) {
-                moveLeft = false;
-                moveUp = false;
-                moveDown = false;
-                moveRight = true;
-            }
-            if ((event.getKey() == Key.UP_ARROW && moveDown != true) ||
-            (event.getKey() == Key.UP_ARROW && numSegs == 0)) {
-                moveLeft = false;
-                moveRight = false;
-                moveDown = false;
-                moveUp = true;
-            }
-            if ((event.getKey() == Key.DOWN_ARROW && moveUp != true) ||
-            (event.getKey() == Key.DOWN_ARROW && numSegs == 0)) {
-                moveLeft = false;
-                moveRight = false;
-                moveUp = false;
-                moveDown = true;
-            }
-        });   
-
-        canvas.animate(() -> {
-            
-            checkForCollision();
-
-            if(moveLeft) { 
-                addingSegments(path);
-                food.foodEaten(collide.eatsFood());
-                snake.addToPath(path);
-                snake.moveLeft();
-                following();
-            }
-            if(moveRight) {
-                addingSegments(path);
-                food.foodEaten(collide.eatsFood());
-                snake.addToPath(path);
-                snake.moveRight();
-                following();
-            }
-            if(moveUp) {
-                addingSegments(path);
-                food.foodEaten(collide.eatsFood());
-                snake.addToPath(path);
-                snake.moveUp();
-                following();
-            }
-            if(moveDown) {
-                addingSegments(path);
-                food.foodEaten(collide.eatsFood());
-                snake.addToPath(path);
-                snake.moveDown();
-                following();
-            }
-        });    
-
+        canvas.add(foodPieces);    
     }
 
     private void addingSegments(List<Point> path) {
@@ -211,8 +148,57 @@ public class SnakeGame {
         canvas.add(score);
     }
 
-        
+    public void onKeyDown(KeyboardEvent event) {
+            if ((event.getKey() == Key.LEFT_ARROW && moveRight != true) || 
+            (event.getKey() == Key.LEFT_ARROW && numSegs == 0)) {
+                moveRight = false;
+                moveUp = false;
+                moveDown = false;
+                moveLeft = true;
+            }
+            if ((event.getKey() == Key.RIGHT_ARROW && moveLeft != true) ||
+            (event.getKey() == Key.RIGHT_ARROW && numSegs == 0)) {
+                moveLeft = false;
+                moveUp = false;
+                moveDown = false;
+                moveRight = true;
+            }
+            if ((event.getKey() == Key.UP_ARROW && moveDown != true) ||
+            (event.getKey() == Key.UP_ARROW && numSegs == 0)) {
+                moveLeft = false;
+                moveRight = false;
+                moveDown = false;
+                moveUp = true;
+            }
+            if ((event.getKey() == Key.DOWN_ARROW && moveUp != true) ||
+            (event.getKey() == Key.DOWN_ARROW && numSegs == 0)) {
+                moveLeft = false;
+                moveRight = false;
+                moveUp = false;
+                moveDown = true;
+            }   
+    }
 
+    public void animate() {
+            checkForCollision();
+            addingSegments(path);
+                food.foodEaten(collide.eatsFood());
+                snake.addToPath(path);
+            if(moveLeft) {
+                snake.moveLeft();
+            }
+            if(moveRight) {
+                snake.moveRight();
+            }
+            if(moveUp) {
+                snake.moveUp();
+            }
+            if(moveDown) {
+                snake.moveDown();
+            }
+            following();
+    }
+        
     // ---------------------------------------
 
     // >>>>> HOME SCREEN RELATED METHODS <<<<<
@@ -220,7 +206,6 @@ public class SnakeGame {
     // ---------------------------------------
 
     private void homeScreen() {
-        canvas.removeAll();
         levelButtons();
         welcomeText();
         startButton();
@@ -322,10 +307,7 @@ public class SnakeGame {
         replay.setCenter(CANVAS_WIDTH / 2, 2 * CANVAS_HEIGHT / 3);
         canvas.add(replay);
         replay.onClick(() -> {
-            wallManager.getWallGroup().removeAll();
-            canvas.removeAll();
-            SnakeGame snakeGame2 = new SnakeGame();
-            snakeGame2.homeScreen();
+            window.newGame().homeScreen();
         });
     }
 }
