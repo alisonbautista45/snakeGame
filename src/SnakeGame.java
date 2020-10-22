@@ -95,6 +95,7 @@ public class SnakeGame extends GraphicsGroup {
     private void run() {
         this.add(food);
         this.add(snake);
+        this.add(score);
     }
 
     private void addingSegments(List<Point> path) {
@@ -235,7 +236,6 @@ public class SnakeGame extends GraphicsGroup {
         start.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
         this.add(start);
         buttons.add(start);
-
         start.onClick(() -> {
             for (Button button : buttons) {
                 this.remove(button);
@@ -243,7 +243,6 @@ public class SnakeGame extends GraphicsGroup {
             for (GraphicsText text : screenText) {
                 this.remove(text);
             }
-            this.add(score);
             run();
         });
     }
@@ -254,7 +253,6 @@ public class SnakeGame extends GraphicsGroup {
         this.add(basic);
         buttons.add(basic);
         basic.onClick(() -> wallManager.removeWalls());
-
         Button borders = new Button("Borders");
         borders.setPosition(200, 3 * CANVAS_HEIGHT / 4);
         this.add(borders);
@@ -310,6 +308,9 @@ public class SnakeGame extends GraphicsGroup {
         this.add(replay);
         replay.onClick(() -> {
             this.removeAll();
+            if (wallManager.getWallGroup() != null) {
+                wallManager.getWallGroup().removeAll();
+            }
             window.newGame().homeScreen();
         });
     }

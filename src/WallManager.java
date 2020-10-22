@@ -70,7 +70,6 @@ public class WallManager extends GraphicsGroup {
         group.add(wall4);
         walls.add(wall4);
         wallGroup.add(wall4);
-
     }
 
     /**
