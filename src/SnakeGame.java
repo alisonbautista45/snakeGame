@@ -322,6 +322,7 @@ public class SnakeGame {
         replay.setCenter(CANVAS_WIDTH / 2, 2 * CANVAS_HEIGHT / 3);
         canvas.add(replay);
         replay.onClick(() -> {
+            wallManager.getWallGroup().removeAll();
             canvas.removeAll();
             SnakeGame snakeGame2 = new SnakeGame();
             snakeGame2.homeScreen();
