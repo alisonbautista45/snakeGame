@@ -5,9 +5,12 @@ import edu.macalester.graphics.*;
 
 public class Food extends Ellipse{
 
-    //how big our food that shows up will be
+    //The radius of our food ellipse
     private static int radius = 8;
 
+    /**
+     * Creates a piece of food
+     */
     public Food() {
         super(0 - radius, 0 - radius, 
         radius * 2, radius * 2);
@@ -16,6 +19,9 @@ public class Food extends Ellipse{
         this.setStrokeColor(Color.BLACK);
     }
 
+    /**
+     * Returns the radius of the food ellipse
+     */
     public int getRadius() {
         return radius;
     }

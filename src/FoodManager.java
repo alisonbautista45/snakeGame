@@ -15,6 +15,9 @@ public class FoodManager extends GraphicsGroup {
     private int x;
     private int y;
 
+    /**
+     * Creates an initial piece of food and adds it to FoodManager's graphics group
+     */
     FoodManager(CanvasWindow canvas) {
         this.canvas = canvas;
         food = new Food();
@@ -23,7 +26,7 @@ public class FoodManager extends GraphicsGroup {
     }
 
     /**
-     * Adds piece of food to the canvas
+     * Creates a new piece of food and adds it to the graphics group
      */
     public void addFood() {
         newLocation();
@@ -46,7 +49,7 @@ public class FoodManager extends GraphicsGroup {
             x = new Random().nextInt(SnakeGame.CANVAS_WIDTH);
             y = new Random().nextInt(SnakeGame.CANVAS_HEIGHT);  
         }
-        
+
         location = new Point(x, y);
         food.setCenter(location);
     }
