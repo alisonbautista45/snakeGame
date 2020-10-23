@@ -82,7 +82,7 @@ public class SnakeGame extends GraphicsGroup {
         food = new FoodManager(canvas);
         snake = new Snake(this);
 
-        wallManager = new WallManager(this);
+        wallManager = new WallManager();
         this.add(wallManager);
 
         collide = new Collision(snake, food, wallManager, this);    
@@ -250,13 +250,13 @@ public class SnakeGame extends GraphicsGroup {
         basic.setPosition(50, 3 * CANVAS_HEIGHT / 4);
         textLayer.add(basic);
         buttons.add(basic);
-        basic.onClick(() -> wallManager.removeWalls());
+        basic.onClick(() -> wallManager.removeAll());
         Button borders = new Button("Borders");
         borders.setPosition(200, 3 * CANVAS_HEIGHT / 4);
         textLayer.add(borders);
         buttons.add(borders);
         borders.onClick(() -> {
-            wallManager.removeWalls();
+            wallManager.removeAll();
             wallManager.generateBorders();
         });
 
@@ -265,7 +265,7 @@ public class SnakeGame extends GraphicsGroup {
         textLayer.add(doors);
         buttons.add(doors);
         doors.onClick(() -> {
-            wallManager.removeWalls();
+            wallManager.removeAll();
             wallManager.generateDoors();
         });
 
@@ -274,7 +274,7 @@ public class SnakeGame extends GraphicsGroup {
         textLayer.add(simpleMaze);
         buttons.add(simpleMaze);
         simpleMaze.onClick(() -> {
-            wallManager.removeWalls();
+            wallManager.removeAll();
             wallManager.generateSimpleMaze();
         });
 
@@ -283,7 +283,7 @@ public class SnakeGame extends GraphicsGroup {
         textLayer.add(harderMaze);
         buttons.add(harderMaze);
         harderMaze.onClick(() -> {
-            wallManager.removeWalls();
+            wallManager.removeAll();
             wallManager.generateHarderMaze();
         });
     }

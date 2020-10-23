@@ -20,7 +20,6 @@ public class FoodManager extends GraphicsGroup {
         food = new Food();
         food.setCenter(100, 400);
         this.add(food);
-        
     }
 
     /**
