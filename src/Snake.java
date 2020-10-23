@@ -6,6 +6,7 @@ import edu.macalester.graphics.Point;
 
 
 public class Snake extends GraphicsGroup {
+
     private int i = 0;
     private double speed = 2;
 
@@ -26,7 +27,8 @@ public class Snake extends GraphicsGroup {
     private GraphicsObject snakeHead;
 
     /**
-     * Sets snake dimensions
+     * Sets the current snake head (snakeHead) to snakeHeadUp, initializes all of the movement booleans to false,
+     * and sets the starting position of the snake.
      */
     public Snake() {
         snakeHead = snakeHeadUp;
@@ -39,7 +41,8 @@ public class Snake extends GraphicsGroup {
     }
 
     /**
-     * Moves the snake left
+     * Moves the snake's head left, turns on the movement boolean for the snake moving left, and calls the method to 
+     * turn the snake's head appropriately (turnSnakeHead();)
      */
     public void moveLeft() {
         dx = -speed;
@@ -56,7 +59,8 @@ public class Snake extends GraphicsGroup {
     }
 
     /**
-     * Moves the snake right
+     * Moves the snake's head right, turns on the movement boolean for the snake moving right, and calls the method to 
+     * turn the snake's head appropriately (turnSnakeHead();)
      */
     public void moveRight() {
         dx = speed;
@@ -73,7 +77,8 @@ public class Snake extends GraphicsGroup {
     }
 
     /**
-     * Moves the snake up
+     * Moves the snake's head up, turns on the movement boolean for the snake moving up, and calls the method to 
+     * turn the snake's head appropriately (turnSnakeHead();)
      */
     public void moveUp() {
         dx = 0;
@@ -90,7 +95,8 @@ public class Snake extends GraphicsGroup {
     }
 
     /**
-     * Moves the snake down
+     * Moves the snake's head down, turns on the movement boolean for the snake moving down, and calls the method to 
+     * turn the snake's head appropriately (turnSnakeHead();)
      */
     public void moveDown() {
         dx = 0;
@@ -107,18 +113,27 @@ public class Snake extends GraphicsGroup {
     }
 
     /**
-     * Updates the postion of the snake
+     * Updates the postion of the snake's head, given the dx and dy specified by the direction the snake is moving.
      */
     public void updatePosition() {
         this.setPosition(this.getX() + dx, this.getY() + dy);
     }
 
     /**
-     * Sets the start position of the snake
+     * Sets the start position of the snake's head
      */
     private void startPosition() {
         this.setPosition(SnakeGame.CANVAS_WIDTH * 0.5, SnakeGame.CANVAS_HEIGHT * 0.5);
     }
+
+    /**
+     * Creates a list of points (path) 2.5 units behind the snake's head (in the diretion it is currently going), 
+     * with adjusting the distance of the points away from a line directly behind the snake on intervals of four.
+     * This way, every four points is allowed to be a new distance away from the line directly behind the snake's
+     * head, allowing for an object following along said path (consitently 
+     * setting its position to the next point on the list) to appear that far away from the said line. 
+     * This is adjusted so that the path appears in a curved pattern, simulating a snake slithering.
+     */
 
     public void addToPath(List<Point> path) {
         Point point = new Point(this.getX(), this.getY());
@@ -199,6 +214,12 @@ public class Snake extends GraphicsGroup {
         path.add(point);
     }
 
+    /**
+     * Gets the points that represent where the snake's eyes are (the corners of the bounds in the direction the 
+     * snake is facing), and adds them to a list. Only the two current points representing th snake's eyes are on 
+     * the list at any one time, with the left eye being snakeEyes.get(0) and the right eye being snakeEyes.get(1).
+     */
+
     public List<Point> snakeEyes() {
         List<Point> eyes = new ArrayList<>();
         Point leftEye = new Point(this.getCenter().getX() + 7.5, this.getCenter().getY() - 7.55);
@@ -224,6 +245,12 @@ public class Snake extends GraphicsGroup {
         eyes.add(rightEye);
         return eyes;
     }
+
+    /**
+     * Removes the snakeHead from this graphics group,
+     * then baed on the direction the snake is moving, indicated by the below booleans, sets the snakeHead equal
+     * to one facing the appropriate direction, and readds the snakeHEad to the graphicsGroup.
+     */
 
     public void turnSnakeHead() {
         this.remove(snakeHead);
