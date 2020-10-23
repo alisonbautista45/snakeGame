@@ -304,12 +304,14 @@ public class SnakeGame extends GraphicsGroup {
         moveDown = false;
         Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
         snake.setCenter(center);
+        for (Segments segs : allSegments) {
+            segs.removeAllSegments();
+        }
         this.removeAll();
         this.add(gameOverScreen);
         score.setCenter(CANVAS_WIDTH / 2 - score.getWidth(), CANVAS_HEIGHT / 3);
         score.setFont(FontStyle.BOLD, 40);
         gameOverScreen.setCenter(center);
-        segments.removeAll();
         replayGame();
     }
 
