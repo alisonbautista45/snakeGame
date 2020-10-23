@@ -39,7 +39,7 @@ public class SnakeGame extends GraphicsGroup {
     private boolean moveDown;
 
     private GraphicsText score;
-    private GraphicsText gameOverScreen;
+    private GraphicsText gameOver;
 
     private CanvasWindow canvas;
 
@@ -302,27 +302,36 @@ public class SnakeGame extends GraphicsGroup {
 
     /**
      * removes all current GraphicsObjects from the game, repositions the score board, prints "Game Over",
-     * and adds a replay button.
+     * and adds a replay button and 2 rows of colorful walls.
      */
     private void gameOverScreen() {
-        gameOverScreen = new GraphicsText();
-        gameOverScreen.setFont(FontStyle.ITALIC, 65);
-        gameOverScreen.setText("Game Over");
-        gameOverScreen.setFillColor(RED);
+        gameOver = new GraphicsText();
+        gameOver.setFont(FontStyle.ITALIC, 65);
+        gameOver.setText("Game Over");
+        gameOver.setFillColor(RED);
+        Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+        gameOver.setCenter(center);
+        menuLayer.add(gameOver);
+
+        score.setCenter(CANVAS_WIDTH / 2 - score.getWidth(), CANVAS_HEIGHT / 3);
+        score.setFont(FontStyle.BOLD, 40);
+
         moveLeft = false;
         moveRight = false;
         moveUp = false;
         moveDown = false;
-        Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+        
         snake.setCenter(center);
         for (Segments segs : allSegments) {
             segs.removeAllSegments();
         }
+
+        wallManager.removeAll();
+        wallManager.generateFunScreen();
+
         this.removeAll();
-        this.add(gameOverScreen);
-        score.setCenter(CANVAS_WIDTH / 2 - score.getWidth(), CANVAS_HEIGHT / 3);
-        score.setFont(FontStyle.BOLD, 40);
-        gameOverScreen.setCenter(center);
+        this.add(wallManager);
+        
         replayGame();
     }
 

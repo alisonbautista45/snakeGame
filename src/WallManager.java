@@ -94,4 +94,21 @@ public class WallManager extends GraphicsGroup {
         Wall wall7 = new Wall(CANVAS_WIDTH / 4, (3 * CANVAS_HEIGHT / 4) + SMALLER_SIDE, CANVAS_WIDTH / 2, SMALLER_SIDE);
         this.add(wall7);
     }
+
+    /**
+     * Creates 2 rows of walls of 25 walls in total that appear in the very top and very bottom of the canvas.
+     */
+    public void generateFunScreen() {
+        double x = 0;
+        double y = 20;
+        for (int numWalls = 0; numWalls < 25; numWalls++) {
+            if (x > CANVAS_WIDTH) {
+                x = 10;
+                y = CANVAS_HEIGHT - (20 + SMALLER_SIDE);
+            }
+            Wall wall = new Wall(x, y, SMALLER_SIDE, SMALLER_SIDE);
+            this.add(wall);
+            x += 20 + SMALLER_SIDE;
+        }
+    }
 }
