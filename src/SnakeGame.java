@@ -54,7 +54,9 @@ public class SnakeGame extends GraphicsGroup {
     }
 
     /**
-     * Creates and adds 
+     * creates SnakeGame and adds all it simportant elements.
+     * @param canvas canvas window that hosts the game.
+     * @param window creates the canvas and implements event handlers.
      */
     public SnakeGame(CanvasWindow canvas, SnakeGameWindow window) {
 
@@ -81,6 +83,9 @@ public class SnakeGame extends GraphicsGroup {
         score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
     }
 
+    /**
+     * adds the food, snake, and score board to the game.
+     */
     private void run() {
         this.add(food);
         this.add(snake);
@@ -89,7 +94,7 @@ public class SnakeGame extends GraphicsGroup {
 
     private void addingSegments(List<Point> path) {
         numSegs++;
-        segments = new Segments(snake, path, numSegs);
+        segments = new Segments(path, numSegs);
         segments.addToGroup();
         allSegments.add(segments);
         updateScore();
@@ -129,8 +134,8 @@ public class SnakeGame extends GraphicsGroup {
     }
 
     /**
-     * 
-     * @param event
+     * turns the snake to face the direction of the key pressed.
+     * @param event key pressed
      */
     public void onKeyDown(KeyboardEvent event) {
         if ((event.getKey() == Key.LEFT_ARROW && moveRight != true) ||
@@ -164,7 +169,7 @@ public class SnakeGame extends GraphicsGroup {
     }
 
     /**
-     * 
+     * moves the snake and its segments in the direction of the key press, and adds food to the canvas if the snake intersects it.
      */
     public void animate() {
         checkForCollision();
@@ -275,12 +280,12 @@ public class SnakeGame extends GraphicsGroup {
 
     
     /**
-     * 
+     * updates the score to match the number of segments the snake has/the number of food items it's eaten.
      */
     private void updateScore() {
         menuLayer.remove(score);
         score = new GraphicsText("Score: " + numSegs);
-        // score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
+        score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
         menuLayer.add(score);
     }
 
@@ -304,6 +309,7 @@ public class SnakeGame extends GraphicsGroup {
         score.setCenter(CANVAS_WIDTH / 2 - score.getWidth(), CANVAS_HEIGHT / 3);
         score.setFont(FontStyle.BOLD, 40);
         gameOverScreen.setCenter(center);
+        segments.removeAll();
         replayGame();
     }
 
