@@ -10,7 +10,6 @@ public class FoodManager extends GraphicsGroup {
 
     private Point location;
 
-    private GraphicsGroup group;
     CanvasWindow canvas;
     
     private int x;
@@ -28,7 +27,6 @@ public class FoodManager extends GraphicsGroup {
      * Adds piece of food to the canvas
      */
     public void addFood() {
-        System.out.println(food.getCenter());
         newLocation();
         this.add(food);
     }
