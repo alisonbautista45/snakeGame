@@ -92,6 +92,12 @@ public class SnakeGame extends GraphicsGroup {
         menuLayer.add(score);
     }
 
+    /**
+     * Creates a new Segments object, which takes in the list of points path. Score is updated,
+     * since a segment added indicates an increase in score. Each segment object is added to its graphics group
+     * made in segments, which is then added to the snake graphics group.
+     */
+
     private void addingSegments(List<Point> path) {
         numSegs++;
         segments = new Segments(path, numSegs);
@@ -100,6 +106,11 @@ public class SnakeGame extends GraphicsGroup {
         updateScore();
         this.add(segments.getSegmentsGroup());
     }
+
+    /**
+     * Sets the segments to follow along their input path, and sets the newest segment to have the smallest size, 
+     * increasing until the fourth from newest has the standard size of a 10x10 rectangle. 
+     */
 
     private void following() {
         for (Segments segs : allSegments) {
