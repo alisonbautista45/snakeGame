@@ -10,13 +10,13 @@ public class SnakeGameWindow {
 
     public SnakeGameWindow() {
         this.canvas = new CanvasWindow("Snake!", CANVAS_WIDTH, CANVAS_HEIGHT);
-        canvas.onKeyDown(event -> { 
-            if(currentSnakeGame != null) { 
-                currentSnakeGame.onKeyDown(event); 
+        canvas.onKeyDown(event -> {
+            if (currentSnakeGame != null) {
+                currentSnakeGame.onKeyDown(event);
             }
         });
         canvas.animate(() -> {
-            if(currentSnakeGame != null) { 
+            if (currentSnakeGame != null) {
                 currentSnakeGame.animate();
             }
         });
@@ -26,5 +26,5 @@ public class SnakeGameWindow {
         currentSnakeGame = new SnakeGame(this.canvas, this);
         return currentSnakeGame;
     }
-    
+
 }

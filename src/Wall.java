@@ -23,5 +23,5 @@ public class Wall extends Rectangle {
         this.setStroked(true);
         this.setStrokeColor(DARK_GRAY);
     }
-    
+
 }

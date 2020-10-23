@@ -11,7 +11,6 @@ public class Collision {
 
     private GraphicsGroup group;
 
-
     /**
      * 
      * Tests for distance between the snake and the food, returning true if the two are
@@ -63,6 +62,7 @@ public class Collision {
             return false;
         }
     }
+
     /**
      * Checks to see if the snake collides with a wall
      */

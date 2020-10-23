@@ -10,11 +10,6 @@ public class SnakeHead {
         createSnakeHead(degreesRotate);
     }
 
-    public static void main(String[] args) {
-        CanvasWindow canvas = new CanvasWindow("Snake", 150, 200);
-        canvas.add(createSnakeHead(0));
-    }
-
     public static GraphicsGroup createSnakeHead(double degreesRotate) {
         GraphicsGroup group = new GraphicsGroup();
         group.add(createJawRight());
@@ -29,8 +24,8 @@ public class SnakeHead {
         group.add(createMidCover());
 
         group.setScale(scale);
-        group.setCenter(scale * group.getCenter().getX(), 
-                            scale * group.getCenter().getY());
+        group.setCenter(scale * group.getCenter().getX(),
+            scale * group.getCenter().getY());
         group.rotateBy(degreesRotate);
 
         return group;
@@ -79,8 +74,8 @@ public class SnakeHead {
         Point point2 = new Point(16, 150);
         Point point3 = new Point(134, 150);
         Point point4 = new Point(145, 127);
-        Path faceMid = new Path(point1, point2, point3, 
-                                    point4, point1);
+        Path faceMid = new Path(point1, point2, point3,
+            point4, point1);
         faceMid.setFilled(true);
         faceMid.setFillColor(SnakeGame.DARK_GREEN);
         faceMid.setStrokeColor(Color.BLACK);
@@ -93,8 +88,8 @@ public class SnakeHead {
         Point point2 = new Point(11, 130);
         Point point3 = new Point(139, 130);
         Point point4 = new Point(142, 124);
-        Path faceMid = new Path(point1, point2, point3, 
-                                    point4, point1);
+        Path faceMid = new Path(point1, point2, point3,
+            point4, point1);
         faceMid.setFilled(true);
         faceMid.setFillColor(SnakeGame.DARK_GREEN);
         faceMid.setStrokeColor(SnakeGame.DARK_GREEN);
@@ -138,5 +133,5 @@ public class SnakeHead {
         snout.setStrokeColor(SnakeGame.DARK_GREEN);
         return snout;
     }
-    
+
 }

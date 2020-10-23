@@ -1,11 +1,8 @@
-import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.FontStyle;
-import edu.macalester.graphics.GraphicsText;
+import edu.macalester.graphics.*;
+import edu.macalester.graphics.ui.Button;
 import edu.macalester.graphics.events.Key;
 import edu.macalester.graphics.events.KeyboardEvent;
-import edu.macalester.graphics.ui.Button;
-import edu.macalester.graphics.GraphicsGroup;
-import edu.macalester.graphics.Point;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,55 +10,55 @@ import java.awt.Color;
 
 public class SnakeGame extends GraphicsGroup {
 
-        public static final int CANVAS_WIDTH = 800;
-        public static final int CANVAS_HEIGHT = 600;
+    public static final int CANVAS_WIDTH = 800;
+    public static final int CANVAS_HEIGHT = 600;
 
-        public static final Color YELLOW = new Color(238, 186, 76);
-        public static final Color RED = new Color(227, 73, 59);
-        public static final Color AQUA = new Color(35, 181, 175);
-        public static final Color LIGHT_AQUA = new Color(169, 221, 217);
-        public static final Color DARK_GRAY = new Color(58, 58, 60);
-        public static final Color DARK_GREEN = new Color(0, 153, 0);
+    public static final Color YELLOW = new Color(238, 186, 76);
+    public static final Color RED = new Color(227, 73, 59);
+    public static final Color AQUA = new Color(35, 181, 175);
+    public static final Color LIGHT_AQUA = new Color(169, 221, 217);
+    public static final Color DARK_GRAY = new Color(58, 58, 60);
+    public static final Color DARK_GREEN = new Color(0, 153, 0);
 
-        private Snake snake;
+    private Snake snake;
 
-        private FoodManager food;
+    private FoodManager food;
 
-        private Collision collide;
+    private Collision collide;
 
-        private Segments segments;
+    private Segments segments;
 
-        private List<Segments> allSegments = new ArrayList<>();
+    private List<Segments> allSegments = new ArrayList<>();
 
-        private WallManager wallManager;
+    private WallManager wallManager;
 
-        private boolean moveLeft;
-        private boolean moveRight;
-        private boolean moveUp;
-        private boolean moveDown;
+    private boolean moveLeft;
+    private boolean moveRight;
+    private boolean moveUp;
+    private boolean moveDown;
 
-        private int numSegs;
+    private int numSegs;
 
-        private List<Point> path;
+    private List<Point> path;
 
-        private List<Button> buttons = new ArrayList<>();
-        private List<GraphicsText> screenText = new ArrayList<>();
+    private List<Button> buttons = new ArrayList<>();
+    private List<GraphicsText> screenText = new ArrayList<>();
 
-        private GraphicsText score;
-        private GraphicsText gameOverScreen;
+    private GraphicsText score;
+    private GraphicsText gameOverScreen;
 
-        private CanvasWindow canvas;
+    private CanvasWindow canvas;
 
-        private SnakeGameWindow window;
+    private SnakeGameWindow window;
 
-        private GraphicsGroup textLayer = new GraphicsGroup();
+    private GraphicsGroup textLayer = new GraphicsGroup();
 
-        
-    public static void main(String[] args) {   
-        SnakeGameWindow snakeGameWindow = new SnakeGameWindow(); 
+
+    public static void main(String[] args) {
+        SnakeGameWindow snakeGameWindow = new SnakeGameWindow();
         snakeGameWindow.newGame().homeScreen();
     }
-     
+
     /**
      * Main Snake game method that animates the canvas
      */
@@ -80,13 +77,13 @@ public class SnakeGame extends GraphicsGroup {
         moveDown = false;
 
         food = new FoodManager(canvas);
-        snake = new Snake(this);
+        snake = new Snake();
 
         wallManager = new WallManager();
         this.add(wallManager);
 
-        collide = new Collision(snake, food, wallManager, this);    
-        
+        collide = new Collision(snake, food, wallManager, this);
+
         score = new GraphicsText("Score: " + numSegs);
         score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
     }
@@ -106,21 +103,18 @@ public class SnakeGame extends GraphicsGroup {
         this.add(segments.getSegmentsGroup());
     }
 
-    private void following() { 
-        for(Segments segs : allSegments) {
+    private void following() {
+        for (Segments segs : allSegments) {
             if (allSegments.get(numSegs - 1) == segs) {
                 segs.setScale(0.4);
                 segs.setStrokeWidth(0.4);
-            }
-            else if (allSegments.get(numSegs - 2) == segs) {
+            } else if (allSegments.get(numSegs - 2) == segs) {
                 segs.setScale(0.6);
                 segs.setStrokeWidth(0.4);
-            }
-            else if (allSegments.get(numSegs - 3) == segs) {
+            } else if (allSegments.get(numSegs - 3) == segs) {
                 segs.setScale(0.8);
                 segs.setStrokeWidth(0.4);
-            }
-            else {
+            } else {
                 segs.setScale(1);
             }
             segs.follow();
@@ -132,7 +126,7 @@ public class SnakeGame extends GraphicsGroup {
             this.removeAll();
             gameOverScreen();
         }
-        if (collide.snakeCollision()){
+        if (collide.snakeCollision()) {
             this.removeAll();
             gameOverScreen();
         }
@@ -146,58 +140,58 @@ public class SnakeGame extends GraphicsGroup {
     }
 
     public void onKeyDown(KeyboardEvent event) {
-            if ((event.getKey() == Key.LEFT_ARROW && moveRight != true) || 
+        if ((event.getKey() == Key.LEFT_ARROW && moveRight != true) ||
             (event.getKey() == Key.LEFT_ARROW && numSegs == 0)) {
-                moveRight = false;
-                moveUp = false;
-                moveDown = false;
-                moveLeft = true;
-            }
-            if ((event.getKey() == Key.RIGHT_ARROW && moveLeft != true) ||
+            moveRight = false;
+            moveUp = false;
+            moveDown = false;
+            moveLeft = true;
+        }
+        if ((event.getKey() == Key.RIGHT_ARROW && moveLeft != true) ||
             (event.getKey() == Key.RIGHT_ARROW && numSegs == 0)) {
-                moveLeft = false;
-                moveUp = false;
-                moveDown = false;
-                moveRight = true;
-            }
-            if ((event.getKey() == Key.UP_ARROW && moveDown != true) ||
+            moveLeft = false;
+            moveUp = false;
+            moveDown = false;
+            moveRight = true;
+        }
+        if ((event.getKey() == Key.UP_ARROW && moveDown != true) ||
             (event.getKey() == Key.UP_ARROW && numSegs == 0)) {
-                moveLeft = false;
-                moveRight = false;
-                moveDown = false;
-                moveUp = true;
-            }
-            if ((event.getKey() == Key.DOWN_ARROW && moveUp != true) ||
+            moveLeft = false;
+            moveRight = false;
+            moveDown = false;
+            moveUp = true;
+        }
+        if ((event.getKey() == Key.DOWN_ARROW && moveUp != true) ||
             (event.getKey() == Key.DOWN_ARROW && numSegs == 0)) {
-                moveLeft = false;
-                moveRight = false;
-                moveUp = false;
-                moveDown = true;
-            }   
+            moveLeft = false;
+            moveRight = false;
+            moveUp = false;
+            moveDown = true;
+        }
     }
 
     public void animate() {
-            checkForCollision();
-            if (collide.eatsFood()) {
-                addingSegments(path);
-                food.addFood();
-            }
-            snake.addToPath(path);
-            if(moveLeft) {
-                snake.moveLeft();
-            }
-            if(moveRight) {
-                snake.moveRight();
-            }
-            if(moveUp) {
-                snake.moveUp();
-            }
-            if(moveDown) {
-                snake.moveDown();
-            }
-            following();
+        checkForCollision();
+        if (collide.eatsFood()) {
+            addingSegments(path);
+            food.addFood();
+        }
+        snake.addToPath(path);
+        if (moveLeft) {
+            snake.moveLeft();
+        }
+        if (moveRight) {
+            snake.moveRight();
+        }
+        if (moveUp) {
+            snake.moveUp();
+        }
+        if (moveDown) {
+            snake.moveDown();
+        }
+        following();
     }
-        
+
     // ---------------------------------------
 
     // >>>>> HOME SCREEN RELATED METHODS <<<<<

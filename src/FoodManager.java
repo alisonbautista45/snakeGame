@@ -6,11 +6,11 @@ import edu.macalester.graphics.Point;
 
 public class FoodManager extends GraphicsGroup {
 
-    public Food food;
+    private Food food;
 
     private Point location;
 
-    CanvasWindow canvas;
+    private CanvasWindow canvas;
     
     private int x;
     private int y;
