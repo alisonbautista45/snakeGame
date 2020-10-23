@@ -10,7 +10,7 @@ public class Segments extends Rectangle {
 
     private List<Point> path;
     private int distance;
-    private static GraphicsGroup segments = new GraphicsGroup();
+    private static GraphicsGroup segmentsGroup = new GraphicsGroup();
 
     /**
      * A contructor that makes a Segments object, taking and input of a list of points (path), and 
@@ -49,7 +49,7 @@ public class Segments extends Rectangle {
 
     public void addToGroup() {
         this.setCenter(path.get(0).getX(), path.get(0).getY());
-        segments.add(this);
+        segmentsGroup.add(this);
     }
 
     /**
@@ -58,14 +58,16 @@ public class Segments extends Rectangle {
      */
 
     public GraphicsGroup getSegmentsGroup() {
-        return segments;
+        return segmentsGroup;
     }
 
     /**
      * Removes all segments from the group of segments grpahics objects.
      */
 
-    public void removeAll() {
-        segments.removeAll();
+    public void removeAllSegments() {
+        if(Segments.segmentsGroup != null) {
+            segmentsGroup.removeAll();
+        }
     }
 }
