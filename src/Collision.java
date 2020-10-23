@@ -11,20 +11,24 @@ public class Collision {
 
     private GraphicsGroup group;
 
+    
     /**
      * 
-     * Tests for distance between the snake and the food, returning true if the two are
-     * close. Can add collisions for walls and passages to to other side of screen 
-     * later.
+     * Tests for various instances for collision throughout the game
      * 
      */
-
     public Collision (Snake snake, FoodManager foodPieces, WallManager wallManager, GraphicsGroup group) {
         this.foodPieces = foodPieces;
         this.snake = snake;
         this.wallManager = wallManager;
         this.group = group;
     }
+    
+    /**
+     * 
+     * Checks for collision between the snake and the food, removing the piece of food if true
+     * 
+     */
 
     public boolean eatsFood() {
         Point leftEye = snake.snakeEyes().get(0);
@@ -44,6 +48,12 @@ public class Collision {
         }
     }
 
+    /**
+     * 
+     * Checks for collision between the snake and collision, does not remove food if true to
+     * account for eatFood() removing the food object more than once.
+     * 
+     */
     public boolean eatsFood2() {
         Point leftEye = snake.snakeEyes().get(0);
         Point rightEye = snake.snakeEyes().get(1);
