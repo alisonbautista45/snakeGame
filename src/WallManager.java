@@ -24,9 +24,7 @@ public class WallManager extends GraphicsGroup {
         Wall wall3 = new Wall(SMALLER_SIDE, CANVAS_HEIGHT - SMALLER_SIDE, CANVAS_WIDTH - SMALLER_SIDE, SMALLER_SIDE);
         this.add(wall3);
 
-
         Wall wall4 = new Wall(0, SMALLER_SIDE, SMALLER_SIDE, CANVAS_HEIGHT - SMALLER_SIDE);
-
         this.add(wall4);
     }
 
@@ -36,21 +34,15 @@ public class WallManager extends GraphicsGroup {
      */
     public void generateDoors() {
         Wall wall1 = new Wall((CANVAS_WIDTH / 3) - SMALLER_SIDE, 0, SMALLER_SIDE, CANVAS_HEIGHT / 3);
-
         this.add(wall1);
 
-        Wall wall2 = new Wall((CANVAS_WIDTH / 3) - SMALLER_SIDE, (CANVAS_HEIGHT / 3) + SMALLER_SIDE, SMALLER_SIDE,
-            (2 * CANVAS_HEIGHT / 3) - SMALLER_SIDE);
-
+        Wall wall2 = new Wall((CANVAS_WIDTH / 3) - SMALLER_SIDE, (CANVAS_HEIGHT / 3) + SMALLER_SIDE, SMALLER_SIDE, (2 * CANVAS_HEIGHT / 3) - SMALLER_SIDE);
         this.add(wall2);
 
         Wall wall3 = new Wall((2 * CANVAS_WIDTH / 3) - SMALLER_SIDE, 0, SMALLER_SIDE, 2 * CANVAS_HEIGHT / 3);
-
         this.add(wall3);
 
-        Wall wall4 = new Wall((2 * CANVAS_WIDTH / 3) - SMALLER_SIDE, (2 * CANVAS_HEIGHT / 3) + SMALLER_SIDE,
-            SMALLER_SIDE, (CANVAS_HEIGHT / 3) - SMALLER_SIDE);
-
+        Wall wall4 = new Wall((2 * CANVAS_WIDTH / 3) - SMALLER_SIDE, (2 * CANVAS_HEIGHT / 3) + SMALLER_SIDE, SMALLER_SIDE, (CANVAS_HEIGHT / 3) - SMALLER_SIDE);
         this.add(wall4);
     }
 
@@ -59,28 +51,21 @@ public class WallManager extends GraphicsGroup {
      */
     public void generateSimpleMaze() {
         Wall wall1 = new Wall(0, 0, SMALLER_SIDE, 2 * CANVAS_HEIGHT / 3);
-
         this.add(wall1);
 
-        Wall wall2 = new Wall(0, (2 * CANVAS_HEIGHT / 3) + SMALLER_SIDE, SMALLER_SIDE,
-            (CANVAS_HEIGHT / 3) - SMALLER_SIDE);
-
+        Wall wall2 = new Wall(0, (2 * CANVAS_HEIGHT / 3) + SMALLER_SIDE, SMALLER_SIDE, (CANVAS_HEIGHT / 3) - SMALLER_SIDE);
         this.add(wall2);
 
         Wall wall3 = new Wall(CANVAS_WIDTH / 3, CANVAS_HEIGHT / 3, 2 * CANVAS_WIDTH / 3, SMALLER_SIDE);
-
         this.add(wall3);
 
         Wall wall4 = new Wall(CANVAS_WIDTH / 3, (CANVAS_HEIGHT / 3) + SMALLER_SIDE, SMALLER_SIDE, CANVAS_HEIGHT / 3);
-
         this.add(wall4);
 
         Wall wall5 = new Wall(CANVAS_WIDTH / 3, (2 * CANVAS_HEIGHT / 3) + SMALLER_SIDE, CANVAS_WIDTH / 3, SMALLER_SIDE);
-
         this.add(wall5);
 
         Wall wall6 = new Wall(CANVAS_WIDTH - SMALLER_SIDE, 3 * CANVAS_HEIGHT / 4, SMALLER_SIDE, CANVAS_HEIGHT / 4);
-
         this.add(wall6);
     }
 
@@ -89,34 +74,24 @@ public class WallManager extends GraphicsGroup {
      */
     public void generateHarderMaze() {
         Wall wall1 = new Wall(0, 0, (CANVAS_WIDTH / 2) - SMALLER_SIDE, SMALLER_SIDE);
-
         this.add(wall1);
 
         Wall wall2 = new Wall((CANVAS_WIDTH / 2) + SMALLER_SIDE, 0, (CANVAS_WIDTH / 2) - SMALLER_SIDE, SMALLER_SIDE);
-
         this.add(wall2);
 
         Wall wall3 = new Wall(0, CANVAS_HEIGHT / 4, CANVAS_WIDTH / 3, SMALLER_SIDE);
-
         this.add(wall3);
 
-        Wall wall4 = new Wall((CANVAS_WIDTH / 3) - SMALLER_SIDE, (CANVAS_HEIGHT / 4) + SMALLER_SIDE, SMALLER_SIDE,
-            CANVAS_HEIGHT / 3);
-
+        Wall wall4 = new Wall((CANVAS_WIDTH / 3) - SMALLER_SIDE, (CANVAS_HEIGHT / 4) + SMALLER_SIDE, SMALLER_SIDE, CANVAS_HEIGHT / 3);
         this.add(wall4);
 
-        Wall wall5 = new Wall(2 * CANVAS_WIDTH / 3, (CANVAS_HEIGHT / 4) + SMALLER_SIDE, SMALLER_SIDE,
-            CANVAS_HEIGHT / 3);
-
+        Wall wall5 = new Wall(2 * CANVAS_WIDTH / 3, (CANVAS_HEIGHT / 4) + SMALLER_SIDE, SMALLER_SIDE, CANVAS_HEIGHT / 3);
         this.add(wall5);
 
-        Wall wall6 = new Wall(2 * CANVAS_WIDTH / 3, (7 * CANVAS_HEIGHT / 12) + SMALLER_SIDE, CANVAS_WIDTH / 3,
-            SMALLER_SIDE);
-
+        Wall wall6 = new Wall(2 * CANVAS_WIDTH / 3, (7 * CANVAS_HEIGHT / 12) + SMALLER_SIDE, CANVAS_WIDTH / 3, SMALLER_SIDE);
         this.add(wall6);
 
         Wall wall7 = new Wall(CANVAS_WIDTH / 4, (3 * CANVAS_HEIGHT / 4) + SMALLER_SIDE, CANVAS_WIDTH / 2, SMALLER_SIDE);
-
         this.add(wall7);
     }
 }

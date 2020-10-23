@@ -13,6 +13,13 @@ public class Wall extends Rectangle {
     private Color LIGHT_AQUA = SnakeGame.LIGHT_AQUA;
     private Color DARK_GRAY = SnakeGame.DARK_GRAY;
 
+    /**
+     * creates a randomly colored wall.
+     * @param x 
+     * @param y 
+     * @param width
+     * @param height
+     */
     public Wall(double x, double y, double width, double height) {
         super(x, y, width, height);
 
