@@ -13,7 +13,7 @@ public class Food extends Ellipse{
     //center of food
     private Point location;
 
-    public Food () {
+    public Food() {
         super(0 - radius, 0 - radius, 
         radius * 2, radius * 2);
         color = Color.BLACK;

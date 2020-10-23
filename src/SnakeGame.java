@@ -81,7 +81,7 @@ public class SnakeGame extends GraphicsGroup {
         moveUp = false;
         moveDown = false;
 
-        food = new FoodManager(this);
+        food = new FoodManager(this, canvas);
         snake = new Snake(this);
 
         wallManager = new WallManager(this);
@@ -91,7 +91,6 @@ public class SnakeGame extends GraphicsGroup {
         
         score = new GraphicsText("Score: " + numSegs);
         score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
-
     }
 
     private void run() {
@@ -233,7 +232,7 @@ public class SnakeGame extends GraphicsGroup {
     }
 
     private void startButton() {
-        Button start = new Button("click to start game");
+        Button start = new Button("Start!");
         start.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
         textLayer.add(start);
         buttons.add(start);
@@ -249,7 +248,7 @@ public class SnakeGame extends GraphicsGroup {
     }
 
     private void levelButtons() {
-        Button basic = new Button("No obstacles");
+        Button basic = new Button("No Obstacles");
         basic.setPosition(50, 3 * CANVAS_HEIGHT / 4);
         textLayer.add(basic);
         buttons.add(basic);
@@ -272,7 +271,7 @@ public class SnakeGame extends GraphicsGroup {
             wallManager.generateDoors();
         });
 
-        Button simpleMaze = new Button("simple Maze");
+        Button simpleMaze = new Button("Simple Maze");
         simpleMaze.setPosition(400, 3 * CANVAS_HEIGHT / 4);
         textLayer.add(simpleMaze);
         buttons.add(simpleMaze);
@@ -306,7 +305,7 @@ public class SnakeGame extends GraphicsGroup {
     }
 
     private void replayGame() {
-        Button replay = new Button("replay");
+        Button replay = new Button("Replay");
         replay.setCenter(CANVAS_WIDTH / 2, 2 * CANVAS_HEIGHT / 3);
         this.add(replay);
         replay.onClick(() -> {

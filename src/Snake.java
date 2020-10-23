@@ -83,7 +83,9 @@ public class Snake extends GraphicsGroup{
         turnSnakeHead();
     }
     
-
+    /** 
+     * Moves the snake up
+     */
     public void moveUp() {
         dx = 0;
         dy = - speed;
@@ -97,7 +99,9 @@ public class Snake extends GraphicsGroup{
         movingDown = false;
         turnSnakeHead();
     }
-
+    /**
+     * Moves the snake down
+     */
     public void moveDown() {
         dx = 0;
         dy = speed;
@@ -118,7 +122,9 @@ public class Snake extends GraphicsGroup{
     public void updatePosition() {
         this.setPosition(this.getX() + dx, this.getY() + dy);
     }
-
+    /**
+     * Sets the start position of the snake
+     */
     private void startPosition() {
         this.setPosition(SnakeGame.CANVAS_WIDTH * 0.5, SnakeGame.CANVAS_HEIGHT * 0.5);
     }

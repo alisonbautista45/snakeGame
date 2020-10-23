@@ -63,7 +63,9 @@ public class Collision {
             return false;
         }
     }
-
+    /**
+     * Checks to see if the snake collides with a wall
+     */
     public boolean wallCollision() {
         Point leftEye = snake.snakeEyes().get(0);
         Point rightEye = snake.snakeEyes().get(1);
@@ -80,7 +82,9 @@ public class Collision {
         }
         return false;
     }
-
+    /**
+     * Checks to see if the snake collides with its tail
+     */
     public boolean snakeCollision() {
         Point leftEye = snake.snakeEyes().get(0);
         Point rightEye = snake.snakeEyes().get(1);
