@@ -4,11 +4,26 @@ import java.awt.Color;
 
 public class SnakeHead {
 
+    /**
+     * An iv that sets the scale for the snake's head, a scale of 1 having bounds of 150 x 150.
+     */
+
     private static double scale = 0.1;
+
+    /**
+     * A constructor that takes the created snake's head, and allows for it to be pointed in whichever direction,
+     * dictated by degreesRotate.
+     * @param degreesRotate
+     */
 
     public SnakeHead(double degreesRotate) {
         createSnakeHead(degreesRotate);
     }
+
+    /**
+     * Creates the snake's head, with the ability to point it in whatever desired direction.
+     * @param degreesRotate
+     */
 
     public static GraphicsGroup createSnakeHead(double degreesRotate) {
         GraphicsGroup group = new GraphicsGroup();
@@ -31,6 +46,11 @@ public class SnakeHead {
         return group;
     }
 
+    /**
+     * Creates the snakes left pupil
+     * @return
+     */
+
     private static Ellipse createLeftPupil() {
         Ellipse leftPupil = new Ellipse(0, 0, 20, 20);
         leftPupil.setCenter(40, 48);
@@ -40,6 +60,11 @@ public class SnakeHead {
         return leftPupil;
     }
 
+    /**
+     * Creates the snake's right pupil
+     * @return
+     */
+
     private static Ellipse createRightPupil() {
         Ellipse rightPupil = new Ellipse(0, 0, 20, 20);
         rightPupil.setCenter(110, 48);
@@ -48,6 +73,11 @@ public class SnakeHead {
         rightPupil.setFillColor(Color.BLACK);
         return rightPupil;
     }
+
+    /**
+     * Creates the snake's left eye
+     * @return
+     */
 
     private static Ellipse createLeftEye() {
         Ellipse leftEye = new Ellipse(0, 0, 60, 60);
@@ -59,6 +89,11 @@ public class SnakeHead {
         return leftEye;
     }
 
+    /**
+     * Creates the snake's right eye
+     * @return
+     */
+
     private static Ellipse createRightEye() {
         Ellipse rightEye = new Ellipse(0, 0, 60, 60);
         rightEye.setCenter(110, 66);
@@ -68,6 +103,11 @@ public class SnakeHead {
         rightEye.setStrokeWidth(4);
         return rightEye;
     }
+
+    /**
+     * Creates the back of the snake's head.
+     * @return
+     */
 
     private static Path createMid() {
         Point point1 = new Point(5, 127);
@@ -83,6 +123,12 @@ public class SnakeHead {
         return faceMid;
     }
 
+    /**
+     * Creates a cover the same color as the rest of the snakes head to hide any unwanted edges of the 
+     * back of the snake's head from showing up.
+     * @return
+     */
+
     private static Path createMidCover() {
         Point point1 = new Point(8, 124);
         Point point2 = new Point(11, 130);
@@ -97,6 +143,11 @@ public class SnakeHead {
         return faceMid;
     }
 
+    /**
+     * Creates the border on the snake's snout
+     * @return
+     */
+
     private static Arc createNoseOutline() {
         Arc noseOutline = new Arc(0, 0, 100, 148, 34, 112);
         noseOutline.setCenter(75, 18);
@@ -104,6 +155,11 @@ public class SnakeHead {
         noseOutline.setStrokeWidth(4);
         return noseOutline;
     }
+
+    /**
+     * Creates the left side of the snake's face
+     * @return
+     */
 
     private static Ellipse createJawLeft() {
         Ellipse jawLeft = new Ellipse(0, 0, 70, 85);
@@ -115,6 +171,11 @@ public class SnakeHead {
         return jawLeft;
     }
 
+    /**
+     * Creates the right side of the snake's face
+     * @return
+     */
+
     private static Ellipse createJawRight() {
         Ellipse jawRight = new Ellipse(0, 0, 70, 85);
         jawRight.setCenter(115, 105);
@@ -124,6 +185,11 @@ public class SnakeHead {
         jawRight.setStrokeWidth(4);
         return jawRight;
     }
+
+    /**
+     * Creates the snake's nose
+     * @return
+     */
 
     private static Ellipse createSnout() {
         Ellipse snout = new Ellipse(0, 0, 100, 148);
