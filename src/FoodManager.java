@@ -19,14 +19,17 @@ public class FoodManager extends GraphicsGroup {
     FoodManager(GraphicsGroup group, CanvasWindow canvas) {
         this.group = group;
         this.canvas = canvas;
-        addFood();
+        food = new Food();
+        food.setCenter(100, 400);
+        this.add(food);
+        
     }
 
     /**
      * Adds piece of food to the canvas
      */
     public void addFood() {
-        food = new Food();
+        System.out.println(food.getCenter());
         newLocation();
         this.add(food);
     }
@@ -37,7 +40,7 @@ public class FoodManager extends GraphicsGroup {
      */
     public void newLocation() {
         x = new Random().nextInt(SnakeGame.CANVAS_WIDTH);
-        y = new Random().nextInt(SnakeGame.CANVAS_HEIGHT);
+        y = new Random().nextInt(SnakeGame.CANVAS_HEIGHT);  
         System.out.println(x);
         System.out.println(y);
         while (canvas.getElementAt(x + food.getRadius(), y + food.getRadius()) instanceof Wall || 
@@ -51,6 +54,7 @@ public class FoodManager extends GraphicsGroup {
             System.out.println(x);
             System.out.println(y); 
         }
+        
         location = new Point(x, y);
         System.out.println(location);
         food.setCenter(location);
