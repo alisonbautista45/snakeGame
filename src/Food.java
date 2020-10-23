@@ -13,11 +13,10 @@ public class Food extends Ellipse{
     //center of food
     private Point location;
 
-    public Food (Point location) {
-        super(location.getX() - radius, location.getY() - radius, 
+    public Food () {
+        super(0 - radius, 0 - radius, 
         radius * 2, radius * 2);
         color = Color.BLACK;
-        this.location = location;
         this.setFilled(true);
         this.setFillColor(color);
         this.setStrokeColor(color);

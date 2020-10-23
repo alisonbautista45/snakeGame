@@ -22,8 +22,7 @@ public class FoodManager extends GraphicsGroup {
         this.group = group;
         x = new Random().nextInt(SnakeGame.CANVAS_WIDTH);
         y = new Random().nextInt(SnakeGame.CANVAS_HEIGHT);
-        location = new Point(x, y);
-        food = new Food(location);
+        food = new Food();
         addFood();
     }
 
@@ -40,8 +39,8 @@ public class FoodManager extends GraphicsGroup {
      * Adds piece of food to the canvas
      */
     public void addFood() {
-        food = new Food(location);
-        newLocation();
+        food = new Food();
+        newLocation(food);
         this.add(food);
     }
 
@@ -49,9 +48,9 @@ public class FoodManager extends GraphicsGroup {
      * Sets the piece of food to a new random spot on the canvas. Will have to add
      * ability to see where snake is and not place food there.
      */
-    public void newLocation() {
-        x = new Random().nextInt(SnakeGame.CANVAS_WIDTH);
-        y = new Random().nextInt(SnakeGame.CANVAS_HEIGHT);
+    public void newLocation(Food food) {
+        x = 0;//new Random().nextInt(SnakeGame.CANVAS_WIDTH);
+        y = 0;//new Random().nextInt(SnakeGame.CANVAS_HEIGHT);
         location = new Point(x, y);
         check1 = new Point(x + food.getRadius(), y + food.getRadius());
         check2 = new Point(x + food.getRadius(), y - food.getRadius());
