@@ -81,7 +81,7 @@ public class SnakeGame extends GraphicsGroup {
         moveUp = false;
         moveDown = false;
 
-        food = new FoodManager(this, canvas);
+        food = new FoodManager(canvas);
         snake = new Snake(this);
 
         wallManager = new WallManager(this);
@@ -295,11 +295,16 @@ public class SnakeGame extends GraphicsGroup {
         gameOverScreen.setFont(FontStyle.ITALIC, 65);
         gameOverScreen.setText("Game Over");
         gameOverScreen.setFillColor(RED);
+        moveLeft = false;
+        moveRight = false;
+        moveUp = false;
+        moveDown = false;
+        Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+        snake.setCenter(center);
         this.removeAll();
         this.add(gameOverScreen);
-        score.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 4);
+        score.setCenter(CANVAS_WIDTH / 2 - score.getWidth(), CANVAS_HEIGHT / 3);
         score.setFont(FontStyle.BOLD, 40);
-        Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
         gameOverScreen.setCenter(center);
         replayGame();
     }
