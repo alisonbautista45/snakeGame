@@ -10,9 +10,9 @@ public class Segments extends Rectangle {
 
     private List<Point> path;
     private int distance;
-    private static GraphicsGroup segments;
+    private static GraphicsGroup segments = new GraphicsGroup();
 
-    public Segments(Snake snake, List<Point> path, int distance, GraphicsGroup segments) {
+    public Segments(Snake snake, List<Point> path, int distance) {
         super(0, 0, 10, 10);
         this.setFilled(true);
         this.setFillColor(SnakeGame.DARK_GREEN);
@@ -20,7 +20,6 @@ public class Segments extends Rectangle {
         this.setStrokeWidth(0.4);
         this.path = path;
         this.distance = distance;
-        this.segments = segments;
     }
 
     public void follow() {

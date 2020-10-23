@@ -44,8 +44,6 @@ public class SnakeGame extends GraphicsGroup {
 
         private List<Point> path;
 
-        private GraphicsGroup group = new GraphicsGroup();
-
         private List<Button> buttons = new ArrayList<>();
         private List<GraphicsText> screenText = new ArrayList<>();
 
@@ -101,7 +99,7 @@ public class SnakeGame extends GraphicsGroup {
 
     private void addingSegments(List<Point> path) {
         numSegs++;
-        segments = new Segments(snake, path, numSegs, group);
+        segments = new Segments(snake, path, numSegs);
         segments.addToGroup();
         allSegments.add(segments);
         updateScore();
