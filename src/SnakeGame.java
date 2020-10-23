@@ -18,31 +18,25 @@ public class SnakeGame extends GraphicsGroup {
     public static final Color AQUA = new Color(35, 181, 175);
     public static final Color LIGHT_AQUA = new Color(169, 221, 217);
     public static final Color DARK_GRAY = new Color(58, 58, 60);
-    public static final Color DARK_GREEN = new Color(0, 153, 0);
+    public static final Color DARK_GREEN = new Color(0, 82, 33);
 
     private Snake snake;
 
     private FoodManager food;
 
+    private WallManager wallManager;
+
     private Collision collide;
 
     private Segments segments;
-
     private List<Segments> allSegments = new ArrayList<>();
-
-    private WallManager wallManager;
-
+    private int numSegs;
+    private List<Point> path;
+    
     private boolean moveLeft;
     private boolean moveRight;
     private boolean moveUp;
     private boolean moveDown;
-
-    private int numSegs;
-
-    private List<Point> path;
-
-    private List<Button> buttons = new ArrayList<>();
-    private List<GraphicsText> screenText = new ArrayList<>();
 
     private GraphicsText score;
     private GraphicsText gameOverScreen;
@@ -51,7 +45,7 @@ public class SnakeGame extends GraphicsGroup {
 
     private SnakeGameWindow window;
 
-    private GraphicsGroup textLayer = new GraphicsGroup();
+    private GraphicsGroup menuLayer = new GraphicsGroup();
 
 
     public static void main(String[] args) {
@@ -60,24 +54,23 @@ public class SnakeGame extends GraphicsGroup {
     }
 
     /**
-     * Main Snake game method that animates the canvas
+     * Creates and adds 
      */
     public SnakeGame(CanvasWindow canvas, SnakeGameWindow window) {
 
         this.canvas = canvas;
         this.window = window;
 
-        numSegs = 0;
+        food = new FoodManager(canvas);
+        snake = new Snake();
 
+        numSegs = 0;
         path = new ArrayList<>();
 
         moveLeft = false;
         moveRight = false;
         moveUp = false;
         moveDown = false;
-
-        food = new FoodManager(canvas);
-        snake = new Snake();
 
         wallManager = new WallManager();
         this.add(wallManager);
@@ -91,7 +84,7 @@ public class SnakeGame extends GraphicsGroup {
     private void run() {
         this.add(food);
         this.add(snake);
-        textLayer.add(score);
+        menuLayer.add(score);
     }
 
     private void addingSegments(List<Point> path) {
@@ -121,6 +114,9 @@ public class SnakeGame extends GraphicsGroup {
         }
     }
 
+    /**
+     * checks if the snake has collided with the walls or itself, ends the game if there has been a collision.
+     */
     private void checkForCollision() {
         if (collide.wallCollision()) {
             this.removeAll();
@@ -132,13 +128,10 @@ public class SnakeGame extends GraphicsGroup {
         }
     }
 
-    private void updateScore() {
-        textLayer.remove(score);
-        score = new GraphicsText("Score: " + numSegs);
-        score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
-        textLayer.add(score);
-    }
-
+    /**
+     * 
+     * @param event
+     */
     public void onKeyDown(KeyboardEvent event) {
         if ((event.getKey() == Key.LEFT_ARROW && moveRight != true) ||
             (event.getKey() == Key.LEFT_ARROW && numSegs == 0)) {
@@ -170,6 +163,9 @@ public class SnakeGame extends GraphicsGroup {
         }
     }
 
+    /**
+     * 
+     */
     public void animate() {
         checkForCollision();
         if (collide.eatsFood()) {
@@ -192,63 +188,61 @@ public class SnakeGame extends GraphicsGroup {
         following();
     }
 
-    // ---------------------------------------
-
-    // >>>>> HOME SCREEN RELATED METHODS <<<<<
-
-    // ---------------------------------------
-
+    /**
+     * adds the game to the canvas and creates the homescreen.
+     */
     private void homeScreen() {
         canvas.add(this);
-        canvas.add(textLayer);
+        canvas.add(menuLayer);
         levelButtons();
         welcomeText();
         startButton();
     }
 
+    /**
+     * Adds the game's title and "choose level" text to the menu GraphicsGroup.
+     */
     private void welcomeText() {
         GraphicsText title = new GraphicsText();
         title.setText("SNAKE GAME");
         title.setFillColor(DARK_GRAY);
         title.setCenter(CANVAS_WIDTH / 5, CANVAS_HEIGHT / 3);
         title.setFont(FontStyle.BOLD, 80);
-        textLayer.add(title);
-        screenText.add(title);
+        menuLayer.add(title);
+
         GraphicsText chooseLevel = new GraphicsText();
         chooseLevel.setText("Choose your level");
         chooseLevel.setFillColor(DARK_GRAY);
         chooseLevel.setCenter(CANVAS_WIDTH / 5, 2 * CANVAS_HEIGHT / 3);
         chooseLevel.setFont(FontStyle.BOLD, 60);
-        textLayer.add(chooseLevel);
-        screenText.add(chooseLevel);
+        menuLayer.add(chooseLevel);
     }
 
+    /**
+     * Adds a start button to the menu GraphicsGroup.
+     */
     private void startButton() {
         Button start = new Button("Start!");
         start.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-        textLayer.add(start);
-        buttons.add(start);
+        menuLayer.add(start);
         start.onClick(() -> {
-            for (Button button : buttons) {
-                textLayer.remove(button);
-            }
-            for (GraphicsText text : screenText) {
-                textLayer.remove(text);
-            }
+            menuLayer.removeAll();
             run();
         });
     }
 
+    /**
+     * Adds 5 buttons to the nemu GraphicsGroup that enable use to choose levels.
+     */
     private void levelButtons() {
         Button basic = new Button("No Obstacles");
         basic.setPosition(50, 3 * CANVAS_HEIGHT / 4);
-        textLayer.add(basic);
-        buttons.add(basic);
+        menuLayer.add(basic);
         basic.onClick(() -> wallManager.removeAll());
+
         Button borders = new Button("Borders");
         borders.setPosition(200, 3 * CANVAS_HEIGHT / 4);
-        textLayer.add(borders);
-        buttons.add(borders);
+        menuLayer.add(borders);
         borders.onClick(() -> {
             wallManager.removeAll();
             wallManager.generateBorders();
@@ -256,8 +250,7 @@ public class SnakeGame extends GraphicsGroup {
 
         Button doors = new Button("Doors");
         doors.setPosition(300, 3 * CANVAS_HEIGHT / 4);
-        textLayer.add(doors);
-        buttons.add(doors);
+        menuLayer.add(doors);
         doors.onClick(() -> {
             wallManager.removeAll();
             wallManager.generateDoors();
@@ -265,8 +258,7 @@ public class SnakeGame extends GraphicsGroup {
 
         Button simpleMaze = new Button("Simple Maze");
         simpleMaze.setPosition(400, 3 * CANVAS_HEIGHT / 4);
-        textLayer.add(simpleMaze);
-        buttons.add(simpleMaze);
+        menuLayer.add(simpleMaze);
         simpleMaze.onClick(() -> {
             wallManager.removeAll();
             wallManager.generateSimpleMaze();
@@ -274,14 +266,28 @@ public class SnakeGame extends GraphicsGroup {
 
         Button harderMaze = new Button("Not So Simple Maze");
         harderMaze.setPosition(550, 3 * CANVAS_HEIGHT / 4);
-        textLayer.add(harderMaze);
-        buttons.add(harderMaze);
+        menuLayer.add(harderMaze);
         harderMaze.onClick(() -> {
             wallManager.removeAll();
             wallManager.generateHarderMaze();
         });
     }
 
+    
+    /**
+     * 
+     */
+    private void updateScore() {
+        menuLayer.remove(score);
+        score = new GraphicsText("Score: " + numSegs);
+        // score.setCenter(CANVAS_WIDTH * 0.1, CANVAS_HEIGHT * 0.1);
+        menuLayer.add(score);
+    }
+
+    /**
+     * removes all current GraphicsObjects from the game, repositions the score board, prints "Game Over",
+     * and adds a replay button.
+     */
     private void gameOverScreen() {
         gameOverScreen = new GraphicsText();
         gameOverScreen.setFont(FontStyle.ITALIC, 65);
@@ -301,13 +307,16 @@ public class SnakeGame extends GraphicsGroup {
         replayGame();
     }
 
+    /**
+     * creates button that allows user to replay by creating a whole new game and running it.
+     */
     private void replayGame() {
         Button replay = new Button("Replay");
         replay.setCenter(CANVAS_WIDTH / 2, 2 * CANVAS_HEIGHT / 3);
         this.add(replay);
         replay.onClick(() -> {
             this.removeAll();
-            textLayer.removeAll();
+            menuLayer.removeAll();
             window.newGame().homeScreen();
         });
     }
