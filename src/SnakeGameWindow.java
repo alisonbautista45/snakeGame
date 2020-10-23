@@ -8,6 +8,9 @@ public class SnakeGameWindow {
     private SnakeGame currentSnakeGame;
     private CanvasWindow canvas;
 
+    /**
+     * Creates a canvas and adds event handlers to if a SnakeGame has been created.
+     */
     public SnakeGameWindow() {
         this.canvas = new CanvasWindow("Snake!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.onKeyDown(event -> {
@@ -22,6 +25,10 @@ public class SnakeGameWindow {
         });
     }
 
+    /**
+     * creates a new SnakeGame and assigns it to currentSnakeGame.
+     * @return the new SnakeGame
+     */
     public SnakeGame newGame() {
         currentSnakeGame = new SnakeGame(this.canvas, this);
         return currentSnakeGame;
